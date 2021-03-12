@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\mleont\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\mleont\\.nuget\\packages"
+    ]
+  }
+}
