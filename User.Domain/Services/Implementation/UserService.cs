@@ -30,7 +30,6 @@ namespace User.Domain.Services.Implementation
         {
             return unitOfWork.GetPersonRepository()
                 .Query(user => user.Address, c => c.Address.City, c => c.Address.Country);
-                //.GetAll();
         }
 
         public Person GetById(int id)
@@ -38,7 +37,6 @@ namespace User.Domain.Services.Implementation
             return unitOfWork.GetPersonRepository()
                 .Query(u => u.Address, c => c.Address.City, c => c.Address.Country)
                 .FirstOrDefault(u => u.Id == id);
-            //.GetById(id);
         }
 
         public void DeleteById(int id)
