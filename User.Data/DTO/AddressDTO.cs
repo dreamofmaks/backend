@@ -8,8 +8,8 @@ namespace User.Data.DTO
 {
     public class AddressDTO
     {
-        public string City { get; set; }
-        public string Country { get; set; }
+        public City City { get; set; }
+        public Country Country { get; set; }
         public string Street { get; set; }
         public string Building { get; set; }
     }

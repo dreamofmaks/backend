@@ -25,5 +25,24 @@ namespace User.API.Controllers
         {
             return Ok(userService.AddUser(person));
         }
+
+        [HttpGet]
+        public IActionResult GetUsers()
+        {
+            return Ok(userService.GetAll());
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetUserById(int id)
+        {
+            return Ok(userService.GetById(id));
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteById(int id)
+        {
+            userService.DeleteById(id);
+            return Ok();
+        }
     }
 }

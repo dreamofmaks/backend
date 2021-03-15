@@ -11,5 +11,10 @@ namespace User.Domain.Services.Interfaces
     {
         public Person AddUser(PersonDTO person);
 
+        public IEnumerable<Person> GetAll();
+
+        public Person GetById(int id);
+
+        public void DeleteById(int id);
     }
 }

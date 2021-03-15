@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq;
 using User.Data.DTO;
 using User.Data.Infrastructure;
 using User.Data.Model;
@@ -26,6 +24,28 @@ namespace User.Domain.Services.Implementation
             unitOfWork.GetPersonRepository().Add(mappedUser);
             unitOfWork.SaveChanges();
             return mappedUser;
+        }
+
+        public IEnumerable<Person> GetAll()
+        {
+            return unitOfWork.GetPersonRepository()
+                .Query(user => user.Address, c => c.Address.City, c => c.Address.Country);
+                //.GetAll();
+        }
+
+        public Person GetById(int id)
+        {
+            return unitOfWork.GetPersonRepository()
+                .Query(u => u.Address, c => c.Address.City, c => c.Address.Country)
+                .FirstOrDefault(u => u.Id == id);
+            //.GetById(id);
+        }
+
+        public void DeleteById(int id)
+        {
+            var person = unitOfWork.GetPersonRepository().Query(u => u.Address, u => u.Address.City, u => u.Address.Country).FirstOrDefault(user => user.Id == id);
+            unitOfWork.GetPersonRepository().Delete(person);
+            unitOfWork.SaveChanges();
         }
     }
 }

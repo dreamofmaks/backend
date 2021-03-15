@@ -35,9 +35,9 @@ namespace User.Data.Infrastructure
             return new Repository<Country>(_context);
         }
 
-        public async void SaveChangesAsync()
+        public void SaveChanges()
         {
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
     }
 }

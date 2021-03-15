@@ -12,13 +12,9 @@ namespace User.API.Mapping
     {
         public MappingProfile()
         {
-            //CreateMap<CityDTO, City>()
-            //    .ForMember(dist=> dist.Name, opt => opt.MapFrom(src => src.Name));
-            //CreateMap<CountryDTO, CountryDTO>()
-            //    .ForMember(dist=> dist.Name, opt=>opt.MapFrom(src=> src.Name));
             CreateMap<AddressDTO, Address>()
-                .ForPath(dist => dist.City.Name, opt=> opt.MapFrom(src=> src.City))
-                .ForPath(dist => dist.Country.Name, opt => opt.MapFrom(src => src.Country));
+                .ForPath(dist => dist.City.Name, opt=> opt.MapFrom(src=> src.City.Name))
+                .ForPath(dist => dist.Country.Name, opt => opt.MapFrom(src => src.Country.Name));
             CreateMap<PersonDTO, Person>()
                 .ForMember(dist => dist.Address, opt => opt.MapFrom(src=> src.Address));
         }

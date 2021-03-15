@@ -20,22 +20,35 @@ namespace User.Data.Infrastructure
             dbEntities = this.context.Set<TEntity>();
         }
 
-        public async Task<TEntity> GetByIdAsync(params object[] keys) => await dbEntities.FindAsync(keys);
+        public async Task<TEntity> GetById(params object[] keys) => await dbEntities.FindAsync(keys);
 
         public TEntity Add(TEntity entity) => dbEntities.Add(entity).Entity;
 
         public async void AddRangeAsync(IEnumerable<TEntity> entities) => await dbEntities.AddRangeAsync(entities);
 
 
-        public bool DeleteAsync(TEntity entity) =>  dbEntities.Remove(entity).Entity != null;
+        public bool Delete(TEntity entity) =>  dbEntities.Remove(entity).Entity != null;
 
-        public void DeleteRangeAsync(IEnumerable<TEntity> entities) => dbEntities.RemoveRange(entities);
+        public void DeleteRange(IEnumerable<TEntity> entities) => dbEntities.RemoveRange(entities);
 
         public TEntity Update(TEntity entity) =>  dbEntities.Update(entity).Entity;
 
-        public IQueryable<TEntity> Query(params Expression<Func<TEntity, object>>[] includes)
+        public IEnumerable<TEntity> Query(params Expression<Func<TEntity, object>>[] includes)
         {
-            throw new NotImplementedException();
+            var dbSet = context.Set<TEntity>();
+            IQueryable<TEntity> query = dbSet;
+
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            return query.ToList() ?? dbSet.ToList();
+        }
+
+        public async Task<IEnumerable<TEntity>> GetAll()
+        {
+            return await dbEntities.ToListAsync();
         }
     }
 }
