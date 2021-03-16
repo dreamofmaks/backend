@@ -11,18 +11,19 @@ namespace User.Data.Interfaces
     public interface IRepository<TEntity>
         where TEntity: class
     {
-        TEntity GetById(params object[] keys);
+        ValueTask<TEntity> GetByIdAsync(params object[] keys);
 
-        Task<TEntity> Add(TEntity entity);
+        public Task<TEntity> AddAsync(TEntity entity);
 
-        void AddRangeAsync(IEnumerable<TEntity> entities);
+        Task AddRangeAsync(IEnumerable<TEntity> entities);
 
-        bool Delete(TEntity entity);
-        void DeleteRange(IEnumerable<TEntity> entities);
+        Task<bool> DeleteAsync(TEntity entity);
 
-        TEntity Update(TEntity entity);
+        Task DeleteRangeAsync(IEnumerable<TEntity> entities);
 
-        public IEnumerable<TEntity> Query(params Expression<Func<TEntity, object>>[] includes);
+        Task<TEntity> UpdateAsync(TEntity entity);
+
+        public IQueryable<TEntity> Query(params Expression<Func<TEntity, object>>[] includes);
 
         public Task<IEnumerable<TEntity>> GetAll();
     }

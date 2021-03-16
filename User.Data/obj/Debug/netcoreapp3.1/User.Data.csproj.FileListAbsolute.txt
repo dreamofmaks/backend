@@ -1,7 +1,6 @@
 C:\Users\mleont\source\repos\Backend\User.Data\bin\Debug\netcoreapp3.1\User.Data.deps.json
 C:\Users\mleont\source\repos\Backend\User.Data\bin\Debug\netcoreapp3.1\User.Data.dll
 C:\Users\mleont\source\repos\Backend\User.Data\bin\Debug\netcoreapp3.1\User.Data.pdb
-C:\Users\mleont\source\repos\Backend\User.Data\obj\Debug\netcoreapp3.1\User.Data.csprojAssemblyReference.cache
 C:\Users\mleont\source\repos\Backend\User.Data\obj\Debug\netcoreapp3.1\User.Data.AssemblyInfoInputs.cache
 C:\Users\mleont\source\repos\Backend\User.Data\obj\Debug\netcoreapp3.1\User.Data.AssemblyInfo.cs
 C:\Users\mleont\source\repos\Backend\User.Data\obj\Debug\netcoreapp3.1\User.Data.csproj.CoreCompileInputs.cache

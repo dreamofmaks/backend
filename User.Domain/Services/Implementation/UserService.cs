@@ -6,6 +6,7 @@ using User.Data.DTO;
 using User.Data.Infrastructure;
 using User.Data.Model;
 using User.Domain.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace User.Domain.Services.Implementation
 {
@@ -18,48 +19,43 @@ namespace User.Domain.Services.Implementation
             this.unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public Person AddUser(PersonDTO person)
+        public async Task<Person> AddUserAsync(PersonDTO person)
         {
             var mappedUser = _mapper.Map<Person>(person);
 
-            unitOfWork.GetPersonRepository().Add(mappedUser);
-            unitOfWork.SaveChangesAsync();
+            await unitOfWork.GetPersonRepository().AddAsync(mappedUser);
+            await unitOfWork.SaveChangesAsync();
             return mappedUser;
         }
 
-        public IEnumerable<Person> GetAll()
+        public async Task<IEnumerable<Person>> GetAllAsync()
         {
-            return unitOfWork.GetPersonRepository()
-                .Query(user => user.Address, c => c.Address.City, c => c.Address.Country);
+            return await unitOfWork.GetPersonRepository()
+                .Query(user => user.Address, c => c.Address.City, c => c.Address.Country).ToListAsync();
         }
 
-        public Person GetById(int id)
+        public Task<Person> GetByIdAsync(int id)
         {
             return unitOfWork.GetPersonRepository()
                 .Query(u => u.Address, c => c.Address.City, c => c.Address.Country)
-                .FirstOrDefault(u => u.Id == id);
+                .FirstOrDefaultAsync(u => u.Id == id);
         }
 
-        public void DeleteById(int id)
+        public async Task DeleteByIdAsync(int id)
         {
-            var person = unitOfWork.GetPersonRepository().Query(u => u.Address, u => u.Address.City, u => u.Address.Country).FirstOrDefault(user => user.Id == id);
-            unitOfWork.GetPersonRepository().Delete(person);
-            unitOfWork.SaveChangesAsync();
+            var person = await unitOfWork.GetPersonRepository().Query(u => u.Address, u => u.Address.City, u => u.Address.Country).FirstOrDefaultAsync(user => user.Id == id);
+            await unitOfWork.GetPersonRepository().DeleteAsync(person);
+            await unitOfWork.SaveChangesAsync();
         }
 
-        public Person UpdateUser(int id, PersonDTO personForUpdate)
+        public async Task<Person> UpdateUserAsync(PersonDTO personForUpdate)
         {
-            //var mappedUser = _mapper.Map<Person>(person);
-
-            //var editedUser = unitOfWork.GetPersonRepository().Query(u => u.Address, u => u.Address.City, u => u.Address.Country).FirstOrDefault(user => user.Id == id);
-            //unitOfWork.GetPersonRepository().Update(mappedUser);
-            //return mappedUser;
-            var personEntity = unitOfWork.GetPersonRepository().GetById(id);
-            personEntity = _mapper.Map<Person>(personForUpdate);
-
-            unitOfWork.GetPersonRepository().Update(personEntity);
-            return personEntity;
-
+            var user = await unitOfWork.GetPersonRepository().Query(u => u.Address, u => u.Address.City, u => u.Address.Country).FirstOrDefaultAsync(user => user.Id == personForUpdate.Id);
+            if(user != null)
+            {
+                user = _mapper.Map<Person>(personForUpdate);
+            }
+            return user;
         }
     }
 }

@@ -21,34 +21,34 @@ namespace User.API.Controllers
             this.userService = userService;
         }
         [HttpPost]
-        public IActionResult AddUser([FromBody] PersonDTO person)
+        public async Task<IActionResult> AddUser([FromBody] PersonDTO person)
         {
-            return Ok(userService.AddUser(person));
+            return Ok(await userService.AddUserAsync(person));
         }
 
         [HttpGet]
-        public IActionResult GetUsers()
+        public async Task<IActionResult> GetUsers()
         {
-            return Ok(userService.GetAll());
+            return Ok(await userService.GetAllAsync());
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetUserById(int id)
+        public async Task<IActionResult> GetUserById(int id)
         {
-            return Ok(userService.GetById(id));
+            return Ok( await userService.GetByIdAsync(id));
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteById(int id)
+        public async Task<IActionResult> DeleteById(int id)
         {
-            userService.DeleteById(id);
+            await userService.DeleteByIdAsync(id);
             return Ok();
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] PersonDTO personForUpdate)
+        public async Task<IActionResult> Update(int id, [FromBody] PersonDTO personForUpdate)
         {
-            return Ok(userService.UpdateUser(id, personForUpdate));
+            return Ok(await userService.UpdateUserAsync(personForUpdate));
         }
     }
 }

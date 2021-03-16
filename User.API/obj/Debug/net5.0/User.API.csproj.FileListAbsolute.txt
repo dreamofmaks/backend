@@ -7,9 +7,15 @@ C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\User.API.runtimec
 C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\User.API.dll
 C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\ref\User.API.dll
 C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\User.API.pdb
+C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\AutoMapper.dll
+C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\Humanizer.dll
+C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\Microsoft.Data.SqlClient.dll
 C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
 C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
 C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
 C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.SqlServer.dll
 C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\Microsoft.Identity.Client.dll
@@ -19,6 +25,7 @@ C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\Microsoft.Identit
 C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
 C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\System.Configuration.ConfigurationManager.dll
 C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\System.Runtime.Caching.dll
@@ -54,10 +61,3 @@ C:\Users\mleont\source\repos\Backend\User.API\obj\Debug\net5.0\User.API.dll
 C:\Users\mleont\source\repos\Backend\User.API\obj\Debug\net5.0\ref\User.API.dll
 C:\Users\mleont\source\repos\Backend\User.API\obj\Debug\net5.0\User.API.pdb
 C:\Users\mleont\source\repos\Backend\User.API\obj\Debug\net5.0\User.API.genruntimeconfig.cache
-C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\Humanizer.dll
-C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
-C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
-C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
-C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
-C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\AutoMapper.dll
-C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

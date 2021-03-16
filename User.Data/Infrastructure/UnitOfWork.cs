@@ -1,4 +1,5 @@
-﻿using User.Data.Interfaces;
+﻿using System.Threading.Tasks;
+using User.Data.Interfaces;
 using User.Data.Model;
 
 namespace User.Data.Infrastructure
@@ -31,9 +32,9 @@ namespace User.Data.Infrastructure
             return new Repository<Country>(_context);
         }
 
-        public void SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
     }
 }

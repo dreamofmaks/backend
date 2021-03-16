@@ -20,20 +20,25 @@ namespace User.Data.Infrastructure
             dbEntities = this.context.Set<TEntity>();
         }
 
-        public TEntity GetById(params object[] keys) => dbEntities.Find(keys);
+        public ValueTask<TEntity> GetByIdAsync(params object[] keys) => dbEntities.FindAsync(keys);
 
-        public async Task<TEntity> Add(TEntity entity) => dbEntities.Add(entity).Entity;
+        public async Task<TEntity> AddAsync(TEntity entity)
+        {
+            return (await dbEntities.AddAsync(entity)).Entity;
+        }
 
-        public async void AddRangeAsync(IEnumerable<TEntity> entities) => await dbEntities.AddRangeAsync(entities);
+        public Task AddRangeAsync(IEnumerable<TEntity> entities) =>  dbEntities.AddRangeAsync(entities);
 
 
-        public bool Delete(TEntity entity) =>  dbEntities.Remove(entity).Entity != null;
+        public async Task<bool> DeleteAsync(TEntity entity) =>
+            (await Task.Run(() => dbEntities.Remove(entity))).Entity != null;
 
-        public void DeleteRange(IEnumerable<TEntity> entities) => dbEntities.RemoveRange(entities);
+        public Task DeleteRangeAsync(IEnumerable<TEntity> entities) =>
+            Task.Run(() => dbEntities.RemoveRange(entities));
 
-        public TEntity Update(TEntity entity) =>  dbEntities.Update(entity).Entity;
+        public async Task<TEntity> UpdateAsync(TEntity entity) => await Task.Run(() => dbEntities.Update(entity).Entity);
 
-        public IEnumerable<TEntity> Query(params Expression<Func<TEntity, object>>[] includes)
+        public IQueryable<TEntity> Query(params Expression<Func<TEntity, object>>[] includes)
         {
             var dbSet = context.Set<TEntity>();
             IQueryable<TEntity> query = dbSet;
@@ -43,7 +48,7 @@ namespace User.Data.Infrastructure
                 query = query.Include(include);
             }
 
-            return query.ToList() ?? dbSet.ToList();
+            return query ?? dbSet;
         }
 
         public async Task<IEnumerable<TEntity>> GetAll()
