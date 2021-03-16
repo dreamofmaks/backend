@@ -30,7 +30,7 @@ namespace User.API
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             ); ;
             services.AddDbContext<UserContext>(options =>
-                options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
+                options.EnableSensitiveDataLogging().UseSqlServer(config.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -11,9 +11,9 @@ namespace User.Data.Interfaces
     public interface IRepository<TEntity>
         where TEntity: class
     {
-        Task<TEntity> GetById(params object[] keys);
+        TEntity GetById(params object[] keys);
 
-        TEntity Add(TEntity entity);
+        Task<TEntity> Add(TEntity entity);
 
         void AddRangeAsync(IEnumerable<TEntity> entities);
 

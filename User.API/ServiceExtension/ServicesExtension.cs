@@ -8,6 +8,7 @@ using User.Data.Interfaces;
 using User.Data.Model;
 using User.Domain.Services.Interfaces;
 using User.Domain.Services.Implementation;
+using Microsoft.EntityFrameworkCore;
 
 namespace User.API.ServiceExtension
 {
@@ -19,6 +20,15 @@ namespace User.API.ServiceExtension
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IRepository<Person>, Repository<Person>>();
+        }
+
+
+        public static void DetachAllEntries(this DbContext context)
+        {
+            foreach (var entry in context.ChangeTracker.Entries().ToList())
+            {
+                context.Entry(entry.Entity).State = EntityState.Detached;
+            }
         }
     }
 }

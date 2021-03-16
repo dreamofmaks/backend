@@ -44,5 +44,11 @@ namespace User.API.Controllers
             userService.DeleteById(id);
             return Ok();
         }
+
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, [FromBody] PersonDTO personForUpdate)
+        {
+            return Ok(userService.UpdateUser(id, personForUpdate));
+        }
     }
 }

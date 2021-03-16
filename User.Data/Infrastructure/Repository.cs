@@ -20,9 +20,9 @@ namespace User.Data.Infrastructure
             dbEntities = this.context.Set<TEntity>();
         }
 
-        public async Task<TEntity> GetById(params object[] keys) => await dbEntities.FindAsync(keys);
+        public TEntity GetById(params object[] keys) => dbEntities.Find(keys);
 
-        public TEntity Add(TEntity entity) => dbEntities.Add(entity).Entity;
+        public async Task<TEntity> Add(TEntity entity) => dbEntities.Add(entity).Entity;
 
         public async void AddRangeAsync(IEnumerable<TEntity> entities) => await dbEntities.AddRangeAsync(entities);
 

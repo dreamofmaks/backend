@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using User.Data.DTO;
 using User.Data.Infrastructure;
 using User.Data.Model;
@@ -22,7 +23,7 @@ namespace User.Domain.Services.Implementation
             var mappedUser = _mapper.Map<Person>(person);
 
             unitOfWork.GetPersonRepository().Add(mappedUser);
-            unitOfWork.SaveChanges();
+            unitOfWork.SaveChangesAsync();
             return mappedUser;
         }
 
@@ -43,7 +44,22 @@ namespace User.Domain.Services.Implementation
         {
             var person = unitOfWork.GetPersonRepository().Query(u => u.Address, u => u.Address.City, u => u.Address.Country).FirstOrDefault(user => user.Id == id);
             unitOfWork.GetPersonRepository().Delete(person);
-            unitOfWork.SaveChanges();
+            unitOfWork.SaveChangesAsync();
+        }
+
+        public Person UpdateUser(int id, PersonDTO personForUpdate)
+        {
+            //var mappedUser = _mapper.Map<Person>(person);
+
+            //var editedUser = unitOfWork.GetPersonRepository().Query(u => u.Address, u => u.Address.City, u => u.Address.Country).FirstOrDefault(user => user.Id == id);
+            //unitOfWork.GetPersonRepository().Update(mappedUser);
+            //return mappedUser;
+            var personEntity = unitOfWork.GetPersonRepository().GetById(id);
+            personEntity = _mapper.Map<Person>(personForUpdate);
+
+            unitOfWork.GetPersonRepository().Update(personEntity);
+            return personEntity;
+
         }
     }
 }

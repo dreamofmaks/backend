@@ -14,6 +14,6 @@ namespace User.Data.Infrastructure
         IRepository<City> GetCityRepository();
         IRepository<Country> GetCountryRepository();
 
-        void SaveChanges();
+        void SaveChangesAsync();
     }
 }

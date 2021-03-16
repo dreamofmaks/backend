@@ -16,5 +16,7 @@ namespace User.Domain.Services.Interfaces
         public Person GetById(int id);
 
         public void DeleteById(int id);
+
+        public Person UpdateUser(int id, PersonDTO person);
     }
 }
