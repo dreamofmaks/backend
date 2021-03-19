@@ -45,6 +45,7 @@ namespace User.Data.Infrastructure
         public Task<TEntity> UpdateAsync(TEntity entity)
         {
             var updatedEntity = dbEntities.Update(entity).Entity;
+            context.Entry(updatedEntity).State = EntityState.Modified;
             return Task.FromResult(updatedEntity);
         } 
 

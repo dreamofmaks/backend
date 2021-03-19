@@ -21,13 +21,8 @@ namespace User.Domain.Services.Implementation
         }
         public async Task<IEnumerable<CountryDTO>> GetCountries()
         {
-            
             var countries = await unitOfWork.GetCountryRepository().GetAll();
-            List<CountryDTO> countriesDTO = new List<CountryDTO>();
-
-            _mapper.Map<IEnumerable<DCountry>>(countries);
-
-            return countriesDTO;
+            return _mapper.Map<IEnumerable<CountryDTO>>(countries);
         }
     }
 }

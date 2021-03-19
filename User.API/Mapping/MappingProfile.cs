@@ -19,6 +19,8 @@ namespace User.API.Mapping
                 .ForPath(dist => dist.Country, opt => opt.Ignore());
             CreateMap<PersonDTO, Person>()
                 .ForPath(dist => dist.Address.Countryid, opt => opt.MapFrom(src => src.Address.Country.Id))
+                .ForPath(dist => dist.Address.Id, opt => opt.MapFrom(src => src.Addressid))
+                .ForPath(dist => dist.Address.Cityid, opt => opt.MapFrom(src => src.Address.City.Id))
                 .ForMember(dist => dist.Address, opt => opt.MapFrom(src => src.Address))
                 .ForMember(dist => dist.Addressid, opt => opt.MapFrom(src => src.Addressid));
 
