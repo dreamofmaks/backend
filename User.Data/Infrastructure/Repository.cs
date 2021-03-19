@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using User.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using User.Data.Models;
 
 namespace User.Data.Infrastructure
@@ -30,15 +31,22 @@ namespace User.Data.Infrastructure
         public Task AddRangeAsync(IEnumerable<TEntity> entities) =>  dbEntities.AddRangeAsync(entities);
 
 
-        public async Task<bool> DeleteAsync(TEntity entity) =>
-            (await Task.Run(() => dbEntities.Remove(entity))).Entity != null;
-
-        public Task DeleteRangeAsync(IEnumerable<TEntity> entities) =>
-            Task.Run(() => dbEntities.RemoveRange(entities));
-
-        public async Task<TEntity> UpdateAsync(TEntity entity)
+        public Task DeleteAsync(TEntity entity)
         {
-            return await Task.Run(() => dbEntities.Update(entity).Entity);
+            dbEntities.Remove(entity);
+            return Task.CompletedTask;
+        }
+
+        public Task DeleteRange(IEnumerable<TEntity> entities)
+        {
+            dbEntities.RemoveRange(entities);
+            return Task.CompletedTask;
+        }
+
+        public Task UpdateAsync(TEntity entity)
+        {
+            var updatedEntity = dbEntities.Update(entity).Entity;
+            return Task.CompletedTask;
         } 
 
         public IQueryable<TEntity> Query(params Expression<Func<TEntity, object>>[] includes)
