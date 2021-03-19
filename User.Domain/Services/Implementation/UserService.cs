@@ -6,7 +6,6 @@ using User.Data.DTO;
 using User.Data.Infrastructure;
 using User.Data.Models;
 using User.Domain.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace User.Domain.Services.Implementation
 {
@@ -25,33 +24,33 @@ namespace User.Domain.Services.Implementation
 
             await unitOfWork.GetPersonRepository().AddAsync(mappedUser);
             await unitOfWork.SaveChangesAsync();
-            var user = await unitOfWork.GetPersonRepository().Query(u => u.Address, u => u.Address.Country)
-                .FirstOrDefaultAsync(user => user.Id == mappedUser.Id);
+            var user = unitOfWork.GetPersonRepository().Query(u => u.Address, u => u.Address.Country)
+                .FirstOrDefault(user => user.Id == mappedUser.Id);
             var dtoMapped = _mapper.Map<PersonDTO>(user);
             return dtoMapped;
         }
 
-        public async Task<IEnumerable<PersonDTO>> GetAllAsync()
+        public Task<IEnumerable<PersonDTO>> GetAllAsync()
         {
-            var users =  await unitOfWork.GetPersonRepository()
-                .Query(user => user.Address, c => c.Address.City, c => c.Address.Country).ToListAsync();
+            var users = unitOfWork.GetPersonRepository()
+                .Query(user => user.Address, c => c.Address.City, c => c.Address.Country);
             var mappedUsers = _mapper.Map<IEnumerable<PersonDTO>>(users);
 
-            return mappedUsers;
+            return Task.FromResult(mappedUsers);
         }
 
-        public async Task<PersonDTO> GetByIdAsync(int id)
+        public Task<PersonDTO> GetByIdAsync(int id)
         {
-            var user =await unitOfWork.GetPersonRepository()
+            var user = unitOfWork.GetPersonRepository()
                 .Query(u => u.Address, c => c.Address.City, c => c.Address.Country)
-                .FirstOrDefaultAsync(u => u.Id == id);
+                .FirstOrDefault(u => u.Id == id);
             var mappedDto = _mapper.Map<PersonDTO>(user);
-            return mappedDto;
+            return Task.FromResult(mappedDto);
         }
 
         public async Task DeleteByIdAsync(int id)
         {
-            var person = await unitOfWork.GetPersonRepository().Query(u => u.Address, u => u.Address.City, u => u.Address.Country).FirstOrDefaultAsync(user => user.Id == id);
+            var person = unitOfWork.GetPersonRepository().Query(u => u.Address, u => u.Address.City, u => u.Address.Country).FirstOrDefault(user => user.Id == id);
             await unitOfWork.GetCityRepository().DeleteById(person.Address.City.Id);
             await unitOfWork.GetAddressRepository().DeleteById(person.Address.Id);
             await unitOfWork.GetPersonRepository().DeleteAsync(person);

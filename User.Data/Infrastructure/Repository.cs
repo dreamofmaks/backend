@@ -31,10 +31,9 @@ namespace User.Data.Infrastructure
         public Task AddRangeAsync(IEnumerable<TEntity> entities) =>  dbEntities.AddRangeAsync(entities);
 
 
-        public Task DeleteAsync(TEntity entity)
+        public Task<bool> DeleteAsync(TEntity entity)
         {
-            dbEntities.Remove(entity);
-            return Task.CompletedTask;
+            return Task.FromResult(dbEntities.Remove(entity).Entity != null);
         }
 
         public Task DeleteRange(IEnumerable<TEntity> entities)
@@ -43,13 +42,13 @@ namespace User.Data.Infrastructure
             return Task.CompletedTask;
         }
 
-        public Task UpdateAsync(TEntity entity)
+        public Task<TEntity> UpdateAsync(TEntity entity)
         {
             var updatedEntity = dbEntities.Update(entity).Entity;
-            return Task.CompletedTask;
+            return Task.FromResult(updatedEntity);
         } 
 
-        public IQueryable<TEntity> Query(params Expression<Func<TEntity, object>>[] includes)
+        public IEnumerable<TEntity> Query(params Expression<Func<TEntity, object>>[] includes)
         {
             var dbSet = context.Set<TEntity>();
             IQueryable<TEntity> query = dbSet;

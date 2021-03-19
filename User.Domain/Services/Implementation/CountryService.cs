@@ -24,10 +24,8 @@ namespace User.Domain.Services.Implementation
             
             var countries = await unitOfWork.GetCountryRepository().GetAll();
             List<CountryDTO> countriesDTO = new List<CountryDTO>();
-            foreach (var country in countries)
-            {
-                countriesDTO.Add(_mapper.Map<CountryDTO>(country));
-            }
+
+            _mapper.Map<IEnumerable<DCountry>>(countries);
 
             return countriesDTO;
         }

@@ -17,15 +17,15 @@ namespace User.Data.Interfaces
 
         Task AddRangeAsync(IEnumerable<TEntity> entities);
 
-        Task DeleteAsync(TEntity entity);
+        Task<bool> DeleteAsync(TEntity entity);
 
         Task<bool> DeleteById(int id);
 
         Task DeleteRange(IEnumerable<TEntity> entities);
 
-        Task UpdateAsync(TEntity entity);
+        Task<TEntity> UpdateAsync(TEntity entity);
 
-        public IQueryable<TEntity> Query(params Expression<Func<TEntity, object>>[] includes);
+        public IEnumerable<TEntity> Query(params Expression<Func<TEntity, object>>[] includes);
 
         public Task<IEnumerable<TEntity>> GetAll();
     }
