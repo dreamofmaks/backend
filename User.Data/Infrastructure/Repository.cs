@@ -5,16 +5,16 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using User.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using User.Data.Model;
+using User.Data.Models;
 
 namespace User.Data.Infrastructure
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        private readonly UserContext context;
+        private readonly Context context;
         private readonly DbSet<TEntity> dbEntities;
 
-        public Repository(UserContext context)
+        public Repository(Context context)
         {
             this.context = context;
             dbEntities = this.context.Set<TEntity>();
@@ -36,7 +36,10 @@ namespace User.Data.Infrastructure
         public Task DeleteRangeAsync(IEnumerable<TEntity> entities) =>
             Task.Run(() => dbEntities.RemoveRange(entities));
 
-        public async Task<TEntity> UpdateAsync(TEntity entity) => await Task.Run(() => dbEntities.Update(entity).Entity);
+        public async Task<TEntity> UpdateAsync(TEntity entity)
+        {
+            return await Task.Run(() => dbEntities.Update(entity).Entity);
+        } 
 
         public IQueryable<TEntity> Query(params Expression<Func<TEntity, object>>[] includes)
         {
@@ -54,6 +57,12 @@ namespace User.Data.Infrastructure
         public async Task<IEnumerable<TEntity>> GetAll()
         {
             return await dbEntities.ToListAsync();
+        }
+
+        public async Task<bool> DeleteById(int id)
+        {
+            var entity = await dbEntities.FindAsync(id);
+            return dbEntities.Remove(entity).Entity != null;
         }
     }
 }

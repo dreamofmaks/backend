@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace User.Data.Model
+namespace User.Data.Models
 {
-    public partial class Country
+    public partial class DCountry
     {
-        public Country()
+        public DCountry()
         {
             Addresses = new HashSet<Address>();
         }

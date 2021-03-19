@@ -1,14 +1,17 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using User.Data.Interfaces;
-using User.Data.Model;
+using User.Data.Models;
 
 namespace User.Data.Infrastructure
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly UserContext _context;
+        private readonly Context _context;
+        
 
-        public UnitOfWork(UserContext context)
+        public UnitOfWork(Context context)
         {
             _context = context;
         }
@@ -27,13 +30,13 @@ namespace User.Data.Infrastructure
             return new Repository<City>(_context);
         }
 
-        public IRepository<Country> GetCountryRepository()
+        public IRepository<DCountry> GetCountryRepository()
         {
-            return new Repository<Country>(_context);
+            return new Repository<DCountry>(_context);
         }
 
         public async Task SaveChangesAsync()
-        {
+        { 
             await _context.SaveChangesAsync();
         }
     }

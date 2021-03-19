@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using User.Data.Model;
+using User.Data.Models;
 
 namespace User.Data.Interfaces
 {
@@ -18,6 +18,8 @@ namespace User.Data.Interfaces
         Task AddRangeAsync(IEnumerable<TEntity> entities);
 
         Task<bool> DeleteAsync(TEntity entity);
+
+        Task<bool> DeleteById(int id);
 
         Task DeleteRangeAsync(IEnumerable<TEntity> entities);
 

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using User.Data.Infrastructure;
 using User.Data.Interfaces;
-using User.Data.Model;
+using User.Data.Models;
 using User.Domain.Services.Interfaces;
 using User.Domain.Services.Implementation;
 using Microsoft.EntityFrameworkCore;
@@ -20,10 +20,13 @@ namespace User.API.ServiceExtension
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IRepository<Person>, Repository<Person>>();
+
+            services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<IRepository<DCountry>, Repository<DCountry>>();
         }
 
 
-        public static void DetachAllEntries(this DbContext context)
+        public static void DetachAllEntries(this Context context)
         {
             foreach (var entry in context.ChangeTracker.Entries().ToList())
             {

@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using User.Data.DTO;
-using User.Data.Model;
+using User.Data.Models;
 
 namespace User.Domain.Services.Interfaces
 {
     public interface IUserService
     {
-        public Task<Person> AddUserAsync(PersonDTO person);
+        public Task<PersonDTO> AddUserAsync(PersonDTO person);
 
-        public Task<IEnumerable<Person>> GetAllAsync();
+        public Task<IEnumerable<PersonDTO>> GetAllAsync();
 
-        public Task<Person> GetByIdAsync(int id);
+        public Task<PersonDTO> GetByIdAsync(int id);
 
         public Task DeleteByIdAsync(int id);
 
-        public Task<Person> UpdateUserAsync(PersonDTO person);
+        public Task<PersonDTO> UpdateUserAsync(PersonDTO person);
     }
 }

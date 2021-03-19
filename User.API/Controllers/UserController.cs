@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using User.Data.DTO;
-using User.Data.Model;
+using User.Data.Models;
 using User.Domain.Services.Interfaces;
 
 namespace User.API.Controllers
@@ -45,8 +45,8 @@ namespace User.API.Controllers
             return Ok();
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] PersonDTO personForUpdate)
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] PersonDTO personForUpdate)
         {
             return Ok(await userService.UpdateUserAsync(personForUpdate));
         }

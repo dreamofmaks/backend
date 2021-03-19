@@ -1,32 +1,35 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 #nullable disable
 
-namespace User.Data.Model
+namespace User.Data.Models
 {
-    public partial class UserContext : DbContext
+    public partial class Context : DbContext
     {
-        public UserContext()
+        private IConfiguration _config;
+        public Context()
         {
         }
 
-        public UserContext(DbContextOptions<UserContext> options)
+        public Context(DbContextOptions<Context> options, IConfiguration config)
             : base(options)
         {
+            _config = config;
         }
 
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<City> Cities { get; set; }
-        public virtual DbSet<Country> Countries { get; set; }
+        public virtual DbSet<DCountry> DCountries { get; set; }
         public virtual DbSet<Person> People { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=PF2FKAR1\\SQLEXPRESS;Database=\"Users\";Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;");
+                optionsBuilder.UseSqlServer(_config.GetConnectionString("DefaultConnection"));
             }
         }
 
@@ -40,9 +43,9 @@ namespace User.Data.Model
 
                 entity.Property(e => e.Building).HasColumnName("BUILDING");
 
-                entity.Property(e => e.CityId).HasColumnName("CITY_ID");
+                entity.Property(e => e.Cityid).HasColumnName("CITYID");
 
-                entity.Property(e => e.CountryId).HasColumnName("COUNTRY_ID");
+                entity.Property(e => e.Countryid).HasColumnName("COUNTRYID");
 
                 entity.Property(e => e.Street)
                     .IsRequired()
@@ -52,12 +55,12 @@ namespace User.Data.Model
 
                 entity.HasOne(d => d.City)
                     .WithMany(p => p.Addresses)
-                    .HasForeignKey(d => d.CityId)
+                    .HasForeignKey(d => d.Cityid)
                     .HasConstraintName("FK_ADDRESS_R_CITY");
 
                 entity.HasOne(d => d.Country)
                     .WithMany(p => p.Addresses)
-                    .HasForeignKey(d => d.CountryId)
+                    .HasForeignKey(d => d.Countryid)
                     .HasConstraintName("FK_ADDRESS_R_COUNTRY");
             });
 
@@ -74,11 +77,11 @@ namespace User.Data.Model
                     .HasColumnName("NAME");
             });
 
-            modelBuilder.Entity<Country>(entity =>
+            modelBuilder.Entity<DCountry>(entity =>
             {
-                entity.ToTable("COUNTRY");
+                entity.ToTable("D_COUNTRY");
 
-                entity.Property(e => e.Id).HasColumnName("ID");
+                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -93,7 +96,7 @@ namespace User.Data.Model
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.AddressId).HasColumnName("ADDRESS_ID");
+                entity.Property(e => e.Addressid).HasColumnName("ADDRESSID");
 
                 entity.Property(e => e.DateOfBirth)
                     .HasColumnType("date")
@@ -113,7 +116,7 @@ namespace User.Data.Model
 
                 entity.HasOne(d => d.Address)
                     .WithMany(p => p.People)
-                    .HasForeignKey(d => d.AddressId)
+                    .HasForeignKey(d => d.Addressid)
                     .HasConstraintName("FK_PERSONS_R_ADDRESS");
             });
 
