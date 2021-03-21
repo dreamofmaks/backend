@@ -9,6 +9,6 @@ namespace User.Domain.Services.Interfaces
 {
     public interface ICountryService
     {
-        public Task<IEnumerable<CountryDTO>> GetCountries();
+        Task<IEnumerable<CountryDTO>> GetCountries();
     }
 }

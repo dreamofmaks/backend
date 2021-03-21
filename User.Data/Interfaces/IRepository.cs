@@ -13,7 +13,7 @@ namespace User.Data.Interfaces
     {
         ValueTask<TEntity> GetByIdAsync(params object[] keys);
 
-        public Task<TEntity> AddAsync(TEntity entity);
+        Task<TEntity> AddAsync(TEntity entity);
 
         Task AddRangeAsync(IEnumerable<TEntity> entities);
 
@@ -25,8 +25,8 @@ namespace User.Data.Interfaces
 
         Task<TEntity> UpdateAsync(TEntity entity);
 
-        public IEnumerable<TEntity> Query(params Expression<Func<TEntity, object>>[] includes);
+        IEnumerable<TEntity> Query(params Expression<Func<TEntity, object>>[] includes);
 
-        public Task<IEnumerable<TEntity>> GetAll();
+        Task<IEnumerable<TEntity>> GetAll();
     }
 }

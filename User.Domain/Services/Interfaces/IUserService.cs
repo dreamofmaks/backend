@@ -9,14 +9,14 @@ namespace User.Domain.Services.Interfaces
 {
     public interface IUserService
     {
-        public Task<PersonDTO> AddUserAsync(PersonDTO person);
+        Task<PersonDTO> AddUserAsync(PersonDTO person);
 
-        public Task<IEnumerable<PersonDTO>> GetAllAsync();
+        Task<IEnumerable<PersonDTO>> GetAllAsync();
 
-        public Task<PersonDTO> GetByIdAsync(int id);
+        Task<PersonDTO> GetByIdAsync(int id);
 
-        public Task DeleteByIdAsync(int id);
+        Task DeleteByIdAsync(int id);
 
-        public Task<PersonDTO> UpdateUserAsync(PersonDTO person);
+        Task<PersonDTO> UpdateUserAsync(PersonDTO person);
     }
 }
