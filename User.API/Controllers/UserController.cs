@@ -14,41 +14,42 @@ namespace User.API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserService userService;
+        private readonly IUserService _userService;
 
         public UserController(IUserService userService)
         {
-            this.userService = userService;
+            this._userService = userService;
         }
+
         [HttpPost]
         public async Task<IActionResult> AddUser([FromBody] PersonDTO person)
         {
-            return Ok(await userService.AddUserAsync(person));
+            return Ok(await _userService.AddUserAsync(person));
         }
 
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
-            return Ok(await userService.GetAllAsync());
+            return Ok(await _userService.GetAllAsync());
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById(int id)
         {
-            return Ok( await userService.GetByIdAsync(id));
+            return Ok( await _userService.GetByIdAsync(id));
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteById(int id)
         {
-            await userService.DeleteByIdAsync(id);
+            await _userService.DeleteByIdAsync(id);
             return Ok();
         }
 
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] PersonDTO personForUpdate)
         {
-            return Ok(await userService.UpdateUserAsync(personForUpdate));
+            return Ok(await _userService.UpdateUserAsync(personForUpdate));
         }
     }
 }

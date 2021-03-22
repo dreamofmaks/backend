@@ -28,14 +28,13 @@ namespace User.API.Mapping
             CreateMap<Address, AddressDTO>()
                 .ForPath(dist => dist.City.Name, opt => opt.MapFrom(src => src.City.Name))
                 .ForPath(dist => dist.Country.Name, opt => opt.MapFrom(src => src.Country.Name));
+            
             CreateMap<Person, PersonDTO>()
                 .ForPath(dist => dist.Address.Country.Id, opt => opt.MapFrom(src => src.Address.Country.Id))
                 .ForMember(dist => dist.Address, opt => opt.MapFrom(src => src.Address))
                 .ForMember(dist => dist.Addressid, opt => opt.MapFrom(src => src.Addressid));
 
-            CreateMap<CountryDTO, DCountry>()
-                .ForMember(dist => dist.Name, opt => opt.MapFrom(src => src.Name))
-                .ForMember(dist => dist.Id, opt => opt.MapFrom(src => src.Id));
+            CreateMap<CountryDTO, DCountry>();
 
             CreateMap<DCountry, CountryDTO>();
         }

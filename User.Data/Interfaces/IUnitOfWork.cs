@@ -9,6 +9,7 @@ namespace User.Data.Infrastructure
 {
     public interface IUnitOfWork
     {
+        IUserRepository UserRepository { get; }
         IRepository<Person> GetPersonRepository();
         IRepository<Address> GetAddressRepository();
         IRepository<City> GetCityRepository();

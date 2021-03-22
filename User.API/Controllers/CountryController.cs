@@ -12,11 +12,12 @@ namespace User.API.Controllers
     [ApiController]
     public class CountryController : ControllerBase
     {
-        private ICountryService _countryService;
+        private readonly ICountryService _countryService;
         public CountryController(ICountryService countryService)
         {
             _countryService = countryService;
         }
+
         [HttpGet]
         public async Task<IActionResult> GetAllCountries()
         {

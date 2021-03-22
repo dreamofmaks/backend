@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace User.Data.Models
 {
-    public partial class DCountry
+    public partial class DCountry : IEntity
     {
         public DCountry()
         {

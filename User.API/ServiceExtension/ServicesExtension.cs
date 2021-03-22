@@ -23,15 +23,7 @@ namespace User.API.ServiceExtension
 
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<IRepository<DCountry>, Repository<DCountry>>();
-        }
-
-
-        public static void DetachAllEntries(this Context context)
-        {
-            foreach (var entry in context.ChangeTracker.Entries().ToList())
-            {
-                context.Entry(entry.Entity).State = EntityState.Detached;
-            }
+            services.AddScoped<IUserRepository, UserRepository>();
         }
     }
 }

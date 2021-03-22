@@ -9,9 +9,11 @@ using User.Data.Models;
 namespace User.Data.Interfaces
 {
     public interface IRepository<TEntity>
-        where TEntity: class
+        where TEntity: class, IEntity
     {
-        ValueTask<TEntity> GetByIdAsync(params object[] keys);
+        Task<TEntity> GetByIdAsync(int id);
+
+        Task<IEnumerable<TEntity>> GetAllAsync();
 
         Task<TEntity> AddAsync(TEntity entity);
 
@@ -19,14 +21,16 @@ namespace User.Data.Interfaces
 
         Task<bool> DeleteAsync(TEntity entity);
 
-        Task<bool> DeleteById(int id);
-
         Task DeleteRange(IEnumerable<TEntity> entities);
+
+        Task<bool> DeleteByIdAsync(int id);
 
         Task<TEntity> UpdateAsync(TEntity entity);
 
-        IEnumerable<TEntity> Query(params Expression<Func<TEntity, object>>[] includes);
+        //IQueryable<TEntity> Query(params Expression<Func<TEntity, object>>[] includes);
 
-        Task<IEnumerable<TEntity>> GetAll();
+        //Task<IEnumerable<TEntity>> GetAll();
+
+        //Task<TEntity> GetByIdAsync(int id);
     }
 }

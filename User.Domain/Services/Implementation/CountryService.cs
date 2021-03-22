@@ -12,16 +12,16 @@ namespace User.Domain.Services.Implementation
 {
     public class CountryService : ICountryService
     {
-        private readonly IUnitOfWork unitOfWork;
-        private IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
         public CountryService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            this.unitOfWork = unitOfWork;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
         public async Task<IEnumerable<CountryDTO>> GetCountries()
         {
-            var countries = await unitOfWork.GetCountryRepository().GetAll();
+            var countries = await _unitOfWork.GetCountryRepository().GetAllAsync();
             return _mapper.Map<IEnumerable<CountryDTO>>(countries);
         }
     }

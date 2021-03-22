@@ -14,7 +14,11 @@ namespace User.Data.Infrastructure
         public UnitOfWork(Context context)
         {
             _context = context;
+            UserRepository = new UserRepository(_context);
         }
+
+        public IUserRepository UserRepository { get; }
+
         public IRepository<Person> GetPersonRepository()
         {
             return new Repository<Person>(_context);

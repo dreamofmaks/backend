@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace User.Data.Models
 {
-    public partial class Address
+    public partial class Address : IEntity
     {
         public Address()
         {

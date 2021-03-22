@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace User.Data.Models
 {
-    public partial class Person
+    public partial class Person : IEntity
     {
         public int Id { get; set; }
         public string LastName { get; set; }

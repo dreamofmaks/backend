@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 
@@ -9,15 +6,13 @@ namespace User.Data.Models
 {
     public partial class Context : DbContext
     {
-        private IConfiguration _config;
         public Context()
         {
         }
 
-        public Context(DbContextOptions<Context> options, IConfiguration config)
+        public Context(DbContextOptions<Context> options)
             : base(options)
         {
-            _config = config;
         }
 
         public virtual DbSet<Address> Addresses { get; set; }
@@ -27,10 +22,6 @@ namespace User.Data.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer(_config.GetConnectionString("DefaultConnection"));
-            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

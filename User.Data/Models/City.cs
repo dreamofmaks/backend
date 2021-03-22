@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace User.Data.Models
 {
-    public partial class City
+    public partial class City : IEntity
     {
         public City()
         {

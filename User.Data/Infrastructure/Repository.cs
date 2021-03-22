@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using User.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -10,67 +11,58 @@ using User.Data.Models;
 
 namespace User.Data.Infrastructure
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
     {
-        private readonly Context context;
-        private readonly DbSet<TEntity> dbEntities;
+        private readonly Context _context;
 
         public Repository(Context context)
         {
-            this.context = context;
-            dbEntities = this.context.Set<TEntity>();
+            _context = context;
         }
 
-        public ValueTask<TEntity> GetByIdAsync(params object[] keys) => dbEntities.FindAsync(keys);
+
+        public async Task<TEntity> GetByIdAsync(int id)
+        {
+            return await _context.Set<TEntity>().FindAsync(id);
+        }
+
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        {
+            return await _context.Set<TEntity>().ToListAsync();
+        }
 
         public async Task<TEntity> AddAsync(TEntity entity)
         {
-            return (await dbEntities.AddAsync(entity)).Entity;
+            return (await _context.Set<TEntity>().AddAsync(entity)).Entity;
         }
 
-        public Task AddRangeAsync(IEnumerable<TEntity> entities) =>  dbEntities.AddRangeAsync(entities);
-
+        public Task AddRangeAsync(IEnumerable<TEntity> entities)
+        {
+            return _context.Set<TEntity>().AddRangeAsync(entities);
+        }
 
         public Task<bool> DeleteAsync(TEntity entity)
         {
-            return Task.FromResult(dbEntities.Remove(entity).Entity != null);
+            return Task.FromResult(_context.Set<TEntity>().Remove(entity).Entity != null);
         }
 
         public Task DeleteRange(IEnumerable<TEntity> entities)
         {
-            dbEntities.RemoveRange(entities);
+            _context.Set<TEntity>().RemoveRange(entities);
             return Task.CompletedTask;
+        }
+
+        public async Task<bool> DeleteByIdAsync(int id)
+        {
+            var entity = await _context.Set<TEntity>().FindAsync(id);
+            return _context.Set<TEntity>().Remove(entity).Entity != null;
         }
 
         public Task<TEntity> UpdateAsync(TEntity entity)
         {
-            var updatedEntity = dbEntities.Update(entity).Entity;
-            context.Entry(updatedEntity).State = EntityState.Modified;
+            var updatedEntity = _context.Set<TEntity>().Update(entity).Entity;
+            _context.Entry(updatedEntity).State = EntityState.Modified;
             return Task.FromResult(updatedEntity);
-        } 
-
-        public IEnumerable<TEntity> Query(params Expression<Func<TEntity, object>>[] includes)
-        {
-            var dbSet = context.Set<TEntity>();
-            IQueryable<TEntity> query = dbSet;
-
-            foreach (var include in includes)
-            {
-                query = query.Include(include);
-            }
-
-            return query ?? dbSet;
-        }
-
-        public async Task<IEnumerable<TEntity>> GetAll()
-        {
-            return await dbEntities.ToListAsync();
-        }
-
-        public async Task<bool> DeleteById(int id)
-        {
-            var entity = await dbEntities.FindAsync(id);
-            return dbEntities.Remove(entity).Entity != null;
         }
     }
 }
