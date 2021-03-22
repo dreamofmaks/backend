@@ -17,7 +17,7 @@ namespace User.Data.Infrastructure
             UserRepository = new UserRepository(_context);
         }
 
-        public IUserRepository UserRepository { get; }
+        public IRepository<Person> UserRepository { get; }
 
         public IRepository<Person> GetPersonRepository()
         {

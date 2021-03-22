@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,16 +28,20 @@ namespace User.Domain.Services.Implementation
             await personRepository.AddAsync(mappedUser);
             await _unitOfWork.SaveChangesAsync();
             var user = await personRepository
-                .GetUserByIdWithRelatedData(mappedUser.Id);
+                .GetByIdAsync(mappedUser.Id);
             var dtoMapped = _mapper.Map<PersonDTO>(user);
             return dtoMapped;
         }
 
         public Task<IEnumerable<PersonDTO>> GetAllAsync()
         {
+            if (_mapper == null)
+            {
+                throw new InvalidOperationException();
+            }
             var personRepository = _unitOfWork.UserRepository;
             var users = personRepository
-                .GetAllUsersWithRelatedData().Result;
+                .GetAllAsync().Result;
             var mappedUsers = _mapper.Map<IEnumerable<PersonDTO>>(users);
             return Task.FromResult(mappedUsers);
         }
@@ -44,7 +49,7 @@ namespace User.Domain.Services.Implementation
         public async Task<PersonDTO> GetByIdAsync(int id)
         {
             var user = await _unitOfWork.UserRepository
-                .GetUserByIdWithRelatedData(id);
+                .GetByIdAsync(id);
             var mappedDto = _mapper.Map<PersonDTO>(user);
             return (mappedDto);
         }
@@ -52,7 +57,7 @@ namespace User.Domain.Services.Implementation
         public async Task DeleteByIdAsync(int id)
         {
             var personRepository = _unitOfWork.UserRepository;
-            var person = await personRepository.GetUserByIdWithRelatedData(id);
+            var person = await personRepository.GetByIdAsync(id);
             await _unitOfWork.GetCityRepository().DeleteByIdAsync(person.Address.City.Id);
             await _unitOfWork.GetAddressRepository().DeleteByIdAsync(person.Address.Id);
             await personRepository.DeleteAsync(person);
@@ -63,7 +68,7 @@ namespace User.Domain.Services.Implementation
         {
             var mappedUser = _mapper.Map<Person>(personForUpdate);
             mappedUser.Address.City = null;
-            await _unitOfWork.GetPersonRepository().UpdateAsync(mappedUser);
+            await _unitOfWork.UserRepository.UpdateAsync(mappedUser);
             await _unitOfWork.SaveChangesAsync();
             var mappedDto = _mapper.Map<PersonDTO>(mappedUser);
             return mappedDto;

@@ -14,21 +14,21 @@ namespace User.Data.Infrastructure
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
     {
         private readonly Context _context;
+        protected virtual IQueryable<TEntity> IncludedEntities => _context.Set<TEntity>();
 
         public Repository(Context context)
         {
             _context = context;
         }
 
-
         public async Task<TEntity> GetByIdAsync(int id)
         {
-            return await _context.Set<TEntity>().FindAsync(id);
+            return await IncludedEntities.FirstOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return await _context.Set<TEntity>().ToListAsync();
+            return await IncludedEntities.ToListAsync();
         }
 
         public async Task<TEntity> AddAsync(TEntity entity)

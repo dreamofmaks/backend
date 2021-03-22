@@ -23,7 +23,7 @@ namespace User.API.ServiceExtension
 
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<IRepository<DCountry>, Repository<DCountry>>();
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRepository<Person>, UserRepository>();
         }
     }
 }

@@ -26,11 +26,5 @@ namespace User.Data.Interfaces
         Task<bool> DeleteByIdAsync(int id);
 
         Task<TEntity> UpdateAsync(TEntity entity);
-
-        //IQueryable<TEntity> Query(params Expression<Func<TEntity, object>>[] includes);
-
-        //Task<IEnumerable<TEntity>> GetAll();
-
-        //Task<TEntity> GetByIdAsync(int id);
     }
 }
