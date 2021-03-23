@@ -15,6 +15,7 @@ namespace User.Domain.Services.Implementation
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+
         public UserService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
@@ -33,17 +34,13 @@ namespace User.Domain.Services.Implementation
             return dtoMapped;
         }
 
-        public Task<IEnumerable<PersonDTO>> GetAllAsync()
+        public async Task<IEnumerable<PersonDTO>> GetAllAsync()
         {
-            if (_mapper == null)
-            {
-                throw new InvalidOperationException();
-            }
             var personRepository = _unitOfWork.UserRepository;
-            var users = personRepository
-                .GetAllAsync().Result;
+            var users = await personRepository
+                .GetAllAsync();
             var mappedUsers = _mapper.Map<IEnumerable<PersonDTO>>(users);
-            return Task.FromResult(mappedUsers);
+            return mappedUsers;
         }
 
         public async Task<PersonDTO> GetByIdAsync(int id)

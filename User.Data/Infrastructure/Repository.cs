@@ -14,6 +14,7 @@ namespace User.Data.Infrastructure
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
     {
         private readonly Context _context;
+
         protected virtual IQueryable<TEntity> IncludedEntities => _context.Set<TEntity>();
 
         public Repository(Context context)

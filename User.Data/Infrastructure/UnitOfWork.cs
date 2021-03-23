@@ -19,11 +19,6 @@ namespace User.Data.Infrastructure
 
         public IRepository<Person> UserRepository { get; }
 
-        public IRepository<Person> GetPersonRepository()
-        {
-            return new Repository<Person>(_context);
-        }
-
         public IRepository<Address> GetAddressRepository()
         {
             return new Repository<Address>(_context);

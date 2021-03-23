@@ -13,6 +13,7 @@ namespace User.API.Controllers
     public class CountryController : ControllerBase
     {
         private readonly ICountryService _countryService;
+
         public CountryController(ICountryService countryService)
         {
             _countryService = countryService;
