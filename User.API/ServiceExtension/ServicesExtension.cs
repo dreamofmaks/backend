@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using User.Data.Infrastructure;
 using User.Data.Interfaces;
-using User.Data.Models;
+using User.Data.Model;
 using User.Domain.Services.Interfaces;
 using User.Domain.Services.Implementation;
 using Microsoft.EntityFrameworkCore;
@@ -16,14 +16,19 @@ namespace User.API.ServiceExtension
     {
         public static void AddServices(this IServiceCollection services)
         {
-            services.AddScoped<IUserService, UserService>();
+            
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IRepository<Person>, Repository<Person>>();
 
-            services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<IRepository<DCountry>, Repository<DCountry>>();
             services.AddScoped<IRepository<Person>, UserRepository>();
+
+
+            services.AddScoped<ICountryService, CountryService>();
+            
+            
+
+            services.AddScoped<IUserService, UserService>();
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using User.Data.Models;
+using User.Data.Model;
 
 namespace User.Data.Interfaces
 {
@@ -12,6 +12,8 @@ namespace User.Data.Interfaces
         where TEntity: class, IEntity
     {
         Task<TEntity> GetByIdAsync(int id);
+
+        Task<TEntity> GetByIdWithoutTrackingAsync(int id);
 
         Task<IEnumerable<TEntity>> GetAllAsync();
 

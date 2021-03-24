@@ -6,4 +6,3 @@ C:\Users\mleont\source\repos\Backend\User.Data\obj\Debug\netcoreapp3.1\User.Data
 C:\Users\mleont\source\repos\Backend\User.Data\obj\Debug\netcoreapp3.1\User.Data.csproj.CoreCompileInputs.cache
 C:\Users\mleont\source\repos\Backend\User.Data\obj\Debug\netcoreapp3.1\User.Data.dll
 C:\Users\mleont\source\repos\Backend\User.Data\obj\Debug\netcoreapp3.1\User.Data.pdb
-C:\Users\mleont\source\repos\Backend\User.Data\obj\Debug\netcoreapp3.1\User.Data.csprojAssemblyReference.cache

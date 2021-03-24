@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace User.Data.Models
+namespace User.Data.Model
 {
     public partial class Context : DbContext
     {
@@ -34,9 +36,9 @@ namespace User.Data.Models
 
                 entity.Property(e => e.Building).HasColumnName("BUILDING");
 
-                entity.Property(e => e.Cityid).HasColumnName("CITYID");
+                entity.Property(e => e.CityId).HasColumnName("CITY_ID");
 
-                entity.Property(e => e.Countryid).HasColumnName("COUNTRYID");
+                entity.Property(e => e.CountryId).HasColumnName("COUNTRY_ID");
 
                 entity.Property(e => e.Street)
                     .IsRequired()
@@ -46,12 +48,12 @@ namespace User.Data.Models
 
                 entity.HasOne(d => d.City)
                     .WithMany(p => p.Addresses)
-                    .HasForeignKey(d => d.Cityid)
+                    .HasForeignKey(d => d.CityId)
                     .HasConstraintName("FK_ADDRESS_R_CITY");
 
                 entity.HasOne(d => d.Country)
                     .WithMany(p => p.Addresses)
-                    .HasForeignKey(d => d.Countryid)
+                    .HasForeignKey(d => d.CountryId)
                     .HasConstraintName("FK_ADDRESS_R_COUNTRY");
             });
 
@@ -72,8 +74,6 @@ namespace User.Data.Models
             {
                 entity.ToTable("D_COUNTRY");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(255)
@@ -87,7 +87,7 @@ namespace User.Data.Models
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.Addressid).HasColumnName("ADDRESSID");
+                entity.Property(e => e.AddressId).HasColumnName("ADDRESS_ID");
 
                 entity.Property(e => e.DateOfBirth)
                     .HasColumnType("date")
@@ -107,7 +107,7 @@ namespace User.Data.Models
 
                 entity.HasOne(d => d.Address)
                     .WithMany(p => p.People)
-                    .HasForeignKey(d => d.Addressid)
+                    .HasForeignKey(d => d.AddressId)
                     .HasConstraintName("FK_PERSONS_R_ADDRESS");
             });
 

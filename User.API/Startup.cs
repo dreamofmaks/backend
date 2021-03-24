@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using User.API.Mapping;
 using User.API.ServiceExtension;
-using User.Data.Models;
+using User.Data.Model;
 
 namespace User.API
 {
@@ -30,7 +30,7 @@ namespace User.API
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             ); ;
             services.AddDbContext<Context>(options =>
-                options.EnableSensitiveDataLogging().UseSqlServer(config.GetConnectionString("DefaultConnection")), ServiceLifetime.Transient);
+                options.EnableSensitiveDataLogging().UseSqlServer(config.GetConnectionString("DefaultConnection")));
 
         }
 

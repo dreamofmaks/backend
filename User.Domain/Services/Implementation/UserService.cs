@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using User.Data.DTO;
 using User.Data.Infrastructure;
-using User.Data.Models;
+using User.Data.Model;
 using User.Domain.Services.Interfaces;
 
 namespace User.Domain.Services.Implementation
@@ -64,7 +64,6 @@ namespace User.Domain.Services.Implementation
         public async Task<PersonDTO> UpdateUserAsync(PersonDTO personForUpdate)
         {
             var mappedUser = _mapper.Map<Person>(personForUpdate);
-            mappedUser.Address.City = null;
             await _unitOfWork.UserRepository.UpdateAsync(mappedUser);
             await _unitOfWork.SaveChangesAsync();
             var mappedDto = _mapper.Map<PersonDTO>(mappedUser);

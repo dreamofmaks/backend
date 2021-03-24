@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using User.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-using User.Data.Models;
+using User.Data.Model;
 
 namespace User.Data.Infrastructure
 {
@@ -25,6 +25,11 @@ namespace User.Data.Infrastructure
         public async Task<TEntity> GetByIdAsync(int id)
         {
             return await IncludedEntities.FirstOrDefaultAsync(u => u.Id == id);
+        }
+
+        public async Task<TEntity> GetByIdWithoutTrackingAsync(int id)
+        {
+            return await IncludedEntities.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()

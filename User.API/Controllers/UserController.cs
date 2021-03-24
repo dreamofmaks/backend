@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using User.Data.DTO;
-using User.Data.Models;
+using User.Data.Model;
 using User.Domain.Services.Interfaces;
 
 namespace User.API.Controllers

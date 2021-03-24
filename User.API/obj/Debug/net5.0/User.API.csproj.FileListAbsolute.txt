@@ -1,8 +1,3 @@
-C:\Users\mleont\source\repos\Backend\User.API\obj\Debug\net5.0\User.API.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\mleont\source\repos\Backend\User.API\obj\Debug\net5.0\User.API.AssemblyInfoInputs.cache
-C:\Users\mleont\source\repos\Backend\User.API\obj\Debug\net5.0\User.API.AssemblyInfo.cs
-C:\Users\mleont\source\repos\Backend\User.API\obj\Debug\net5.0\User.API.csproj.CoreCompileInputs.cache
-C:\Users\mleont\source\repos\Backend\User.API\obj\Debug\net5.0\User.API.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\appsettings.Development.json
 C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\appsettings.json
 C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\User.API.exe
@@ -52,6 +47,11 @@ C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\User.Domain.dll
 C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\User.Data.pdb
 C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\User.Domain.pdb
 C:\Users\mleont\source\repos\Backend\User.API\obj\Debug\net5.0\User.API.csprojAssemblyReference.cache
+C:\Users\mleont\source\repos\Backend\User.API\obj\Debug\net5.0\User.API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mleont\source\repos\Backend\User.API\obj\Debug\net5.0\User.API.AssemblyInfoInputs.cache
+C:\Users\mleont\source\repos\Backend\User.API\obj\Debug\net5.0\User.API.AssemblyInfo.cs
+C:\Users\mleont\source\repos\Backend\User.API\obj\Debug\net5.0\User.API.csproj.CoreCompileInputs.cache
+C:\Users\mleont\source\repos\Backend\User.API\obj\Debug\net5.0\User.API.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\mleont\source\repos\Backend\User.API\obj\Debug\net5.0\staticwebassets\User.API.StaticWebAssets.Manifest.cache
 C:\Users\mleont\source\repos\Backend\User.API\obj\Debug\net5.0\staticwebassets\User.API.StaticWebAssets.xml
 C:\Users\mleont\source\repos\Backend\User.API\obj\Debug\net5.0\scopedcss\bundle\User.API.styles.css
