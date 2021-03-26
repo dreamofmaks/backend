@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace User.Data.Model
+namespace User.Data.Models
 {
     public partial class Context : DbContext
     {
@@ -93,6 +93,12 @@ namespace User.Data.Model
                     .HasColumnType("date")
                     .HasColumnName("DATE_OF_BIRTH");
 
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("EMAIL");
+
                 entity.Property(e => e.FirstName)
                     .IsRequired()
                     .HasMaxLength(255)
@@ -104,6 +110,12 @@ namespace User.Data.Model
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("LAST_NAME");
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("PASSWORD");
 
                 entity.HasOne(d => d.Address)
                     .WithMany(p => p.People)

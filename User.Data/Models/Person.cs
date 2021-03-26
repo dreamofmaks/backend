@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace User.Data.Model
+namespace User.Data.Models
 {
     public partial class Person : IEntity
     {
@@ -12,6 +12,8 @@ namespace User.Data.Model
         public string FirstName { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public int? AddressId { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
 
         public virtual Address Address { get; set; }
     }

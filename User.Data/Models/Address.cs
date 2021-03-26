@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace User.Data.Model
+namespace User.Data.Models
 {
     public partial class Address : IEntity
     {

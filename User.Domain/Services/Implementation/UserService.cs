@@ -3,10 +3,9 @@ using AutoMapper;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using User.Data.DTO;
 using User.Data.Infrastructure;
-using User.Data.Model;
+using User.Data.Models;
 using User.Domain.Services.Interfaces;
 
 namespace User.Domain.Services.Implementation

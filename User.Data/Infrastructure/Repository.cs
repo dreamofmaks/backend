@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using User.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-using User.Data.Model;
+using User.Data.Models;
 
 namespace User.Data.Infrastructure
 {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using User.Data.Interfaces;
-using User.Data.Model;
+using User.Data.Models;
 
 namespace User.Data.Infrastructure
 {

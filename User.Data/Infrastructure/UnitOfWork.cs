@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using User.Data.Interfaces;
-using User.Data.Model;
+using User.Data.Models;
 
 namespace User.Data.Infrastructure
 {

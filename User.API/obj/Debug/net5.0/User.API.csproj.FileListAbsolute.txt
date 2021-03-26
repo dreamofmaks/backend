@@ -61,3 +61,4 @@ C:\Users\mleont\source\repos\Backend\User.API\obj\Debug\net5.0\User.API.dll
 C:\Users\mleont\source\repos\Backend\User.API\obj\Debug\net5.0\ref\User.API.dll
 C:\Users\mleont\source\repos\Backend\User.API\obj\Debug\net5.0\User.API.pdb
 C:\Users\mleont\source\repos\Backend\User.API\obj\Debug\net5.0\User.API.genruntimeconfig.cache
+C:\Users\mleont\source\repos\Backend\User.API\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

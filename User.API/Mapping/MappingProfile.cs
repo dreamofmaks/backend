@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using User.Data.DTO;
-using User.Data.Model;
+using User.Data.Models;
 
 namespace User.API.Mapping
 {

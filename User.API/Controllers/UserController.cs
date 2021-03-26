@@ -1,11 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using User.Data.DTO;
-using User.Data.Model;
+using User.Data.Models;
 using User.Domain.Services.Interfaces;
 
 namespace User.API.Controllers
