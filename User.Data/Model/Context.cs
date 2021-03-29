@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace User.Data.Models
+namespace User.Data.Model
 {
     public partial class Context : DbContext
     {
@@ -20,10 +20,14 @@ namespace User.Data.Models
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<DCountry> DCountries { get; set; }
+        public virtual DbSet<Password> Passwords { get; set; }
         public virtual DbSet<Person> People { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            if (!optionsBuilder.IsConfigured)
+            {
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -81,6 +85,32 @@ namespace User.Data.Models
                     .HasColumnName("NAME");
             });
 
+            modelBuilder.Entity<Password>(entity =>
+            {
+                entity.ToTable("PASSWORD");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Password1)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("PASSWORD");
+
+                entity.Property(e => e.Salt)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("SALT");
+
+                entity.Property(e => e.UserId).HasColumnName("USER_ID");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Passwords)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_PASSWORD_R_PERSON");
+            });
+
             modelBuilder.Entity<Person>(entity =>
             {
                 entity.ToTable("PERSON");
@@ -110,12 +140,6 @@ namespace User.Data.Models
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("LAST_NAME");
-
-                entity.Property(e => e.Password)
-                    .IsRequired()
-                    .HasMaxLength(255)
-                    .IsUnicode(false)
-                    .HasColumnName("PASSWORD");
 
                 entity.HasOne(d => d.Address)
                     .WithMany(p => p.People)

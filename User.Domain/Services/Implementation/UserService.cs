@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using User.Data.DTO;
 using User.Data.Infrastructure;
-using User.Data.Models;
+using User.Data.Model;
 using User.Domain.Services.Interfaces;
 
 namespace User.Domain.Services.Implementation
@@ -14,16 +14,20 @@ namespace User.Domain.Services.Implementation
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IPasswordService _passwordService;
 
-        public UserService(IUnitOfWork unitOfWork, IMapper mapper)
+        public UserService(IUnitOfWork unitOfWork, IMapper mapper, IPasswordService passwordService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _passwordService = passwordService;
         }
 
         public async Task<PersonDTO> AddUserAsync(PersonDTO person)
         {
             var mappedUser = _mapper.Map<Person>(person);
+            var password = _mapper.Map<Password>(_passwordService.HashPassword(person.Password));
+            mappedUser.Passwords.Add(password);
             var personRepository =  _unitOfWork.UserRepository;
             await personRepository.AddAsync(mappedUser);
             await _unitOfWork.SaveChangesAsync();

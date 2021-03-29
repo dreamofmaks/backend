@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using User.Data.Interfaces;
-using User.Data.Models;
+using User.Data.Model;
 
 namespace User.Data.Infrastructure
 {

@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using User.Data.DTO;
-using User.Data.Models;
+using User.Data.Model;
 using User.Domain.Services.Interfaces;
 
 namespace User.API.Controllers

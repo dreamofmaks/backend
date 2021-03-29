@@ -5,10 +5,11 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using User.Data.DTO;
-using User.Data.Models;
+using User.Data.Model;
 using User.Domain.Services.Interfaces;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
@@ -18,15 +19,29 @@ namespace User.Domain.Services.Implementation
     {
         private readonly IUserService _userService;
         private readonly IOptions<AuthOptions> _authOptions;
-        public AuthService(IUserService userService, IOptions<AuthOptions> authOptions)
+        private readonly IMapper _mapper;
+        private readonly IPasswordService _passwordService;
+        public AuthService(IUserService userService, IOptions<AuthOptions> authOptions, IMapper mapper, IPasswordService passwordService)
         {
             _userService = userService;
             _authOptions = authOptions;
+            _mapper = mapper;
+            _passwordService = passwordService;
         }
+
         public async Task<PersonDTO> AuthenticateUser(string email, string password)
         {
             var users = await _userService.GetAllAsync();
-            return users.FirstOrDefault(u => u.Email == email && u.Password == password);
+            var currentUser = users.FirstOrDefault(u => u.Email == email);
+            
+            var userPassword = await _passwordService.GetPasswordByUserId((int)currentUser.Id);
+            var passwordForCheck = _passwordService.HashPassword(userPassword.Salt, password);
+            if (userPassword.Password1 == passwordForCheck.Password1)
+            {
+                currentUser.Token = GenerateJWT(currentUser);
+            }
+
+            return currentUser;
         }
 
         public string GenerateJWT(PersonDTO user)

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
-namespace User.Data.Models
+namespace User.Data.Model
 {
     public class AuthOptions
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using User.Data.Interfaces;
-using User.Data.Models;
+using User.Data.Model;
 
 namespace User.Data.Infrastructure
 {
@@ -13,6 +13,8 @@ namespace User.Data.Infrastructure
         IRepository<Address> GetAddressRepository();
         IRepository<City> GetCityRepository();
         IRepository<DCountry> GetCountryRepository();
+
+        IRepository<Password> GetPasswordRepository();
 
         Task SaveChangesAsync();
     }

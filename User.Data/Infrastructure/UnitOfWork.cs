@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using User.Data.Interfaces;
-using User.Data.Models;
+using User.Data.Model;
 
 namespace User.Data.Infrastructure
 {
@@ -37,6 +37,11 @@ namespace User.Data.Infrastructure
         public async Task SaveChangesAsync()
         { 
             await _context.SaveChangesAsync();
+        }
+
+        public IRepository<Password> GetPasswordRepository()
+        {
+            return new Repository<Password>(_context);
         }
     }
 }

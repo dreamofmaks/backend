@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using User.Data.Infrastructure;
 using User.Data.Interfaces;
-using User.Data.Models;
+using User.Data.Model;
 using User.Domain.Services.Interfaces;
 using User.Domain.Services.Implementation;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +27,7 @@ namespace User.API.ServiceExtension
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IPasswordService, PasswordService>();
         }
     }
 }
