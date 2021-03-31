@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace User.Data.Model
+namespace User.Data.Models
 {
     public partial class Context : DbContext
     {
@@ -20,13 +20,14 @@ namespace User.Data.Model
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<DCountry> DCountries { get; set; }
-        public virtual DbSet<Password> Passwords { get; set; }
         public virtual DbSet<Person> People { get; set; }
+        public virtual DbSet<UserPassword> UserPasswords { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
+
             }
         }
 
@@ -85,32 +86,6 @@ namespace User.Data.Model
                     .HasColumnName("NAME");
             });
 
-            modelBuilder.Entity<Password>(entity =>
-            {
-                entity.ToTable("PASSWORD");
-
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.Password1)
-                    .IsRequired()
-                    .HasMaxLength(255)
-                    .IsUnicode(false)
-                    .HasColumnName("PASSWORD");
-
-                entity.Property(e => e.Salt)
-                    .IsRequired()
-                    .HasMaxLength(255)
-                    .IsUnicode(false)
-                    .HasColumnName("SALT");
-
-                entity.Property(e => e.UserId).HasColumnName("USER_ID");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Passwords)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK_PASSWORD_R_PERSON");
-            });
-
             modelBuilder.Entity<Person>(entity =>
             {
                 entity.ToTable("PERSON");
@@ -145,6 +120,32 @@ namespace User.Data.Model
                     .WithMany(p => p.People)
                     .HasForeignKey(d => d.AddressId)
                     .HasConstraintName("FK_PERSONS_R_ADDRESS");
+            });
+
+            modelBuilder.Entity<UserPassword>(entity =>
+            {
+                entity.ToTable("USER_PASSWORD");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("PASSWORD");
+
+                entity.Property(e => e.Salt)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("SALT");
+
+                entity.Property(e => e.UserId).HasColumnName("USER_ID");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserPasswords)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_PASSWORD_R_PERSON");
             });
 
             OnModelCreatingPartial(modelBuilder);

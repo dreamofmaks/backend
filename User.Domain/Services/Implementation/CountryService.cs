@@ -6,7 +6,7 @@ using AutoMapper;
 using User.Data.DTO;
 using User.Data.Infrastructure;
 using User.Data.Interfaces;
-using User.Data.Model;
+using User.Data.Models;
 using User.Domain.Services.Interfaces;
 
 namespace User.Domain.Services.Implementation

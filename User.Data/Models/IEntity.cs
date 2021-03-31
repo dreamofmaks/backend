@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace User.Data.Model
+namespace User.Data.Models
 {
     public interface IEntity
     {
-        public int Id { get; set; }
+        int Id { get; set; }
     }
 }

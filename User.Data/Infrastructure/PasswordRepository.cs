@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using User.Data.DTO;
-using User.Data.Model;
+using User.Data.Models;
 
 namespace User.Data.Infrastructure
 {
-    public class PasswordRepository : Repository<Password>
+    public class PasswordRepository : Repository<UserPassword>
     {
         private readonly Context _context;
          private readonly IMapper _mapper;
@@ -21,7 +21,7 @@ namespace User.Data.Infrastructure
 
         public async Task<PasswordDTO> GetPasswordByUserId(int id)
         {
-            var pass = await _context.Passwords.AsNoTracking().FirstOrDefaultAsync(u => u.UserId == id);
+            var pass = await _context.UserPasswords.AsNoTracking().FirstOrDefaultAsync(u => u.UserId == id);
             var mapped = _mapper.Map<PasswordDTO>(pass);
             return mapped;
         }

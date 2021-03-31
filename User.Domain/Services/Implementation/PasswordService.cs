@@ -12,7 +12,7 @@ using User.Domain.Services.Interfaces;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.EntityFrameworkCore;
 using User.Data.Interfaces;
-using User.Data.Model;
+using User.Data.Models;
 
 namespace User.Domain.Services.Implementation
 {
@@ -43,7 +43,7 @@ namespace User.Domain.Services.Implementation
             byte[] hashedPass = KeyDerivation.Pbkdf2(password, salt, KeyDerivationPrf.HMACSHA256, 1000, 32);
             return new PasswordDTO
             {
-                Password1 = Convert.ToBase64String(hashedPass),
+                Password = Convert.ToBase64String(hashedPass),
                 Salt = Convert.ToBase64String(salt)
             };
         }
@@ -59,7 +59,7 @@ namespace User.Domain.Services.Implementation
                 KeyDerivationPrf.HMACSHA256, 1000, 32);
             return new PasswordDTO
             {
-                Password1 = Convert.ToBase64String(hashedPass)
+                Password = Convert.ToBase64String(hashedPass)
             };
         }
     }

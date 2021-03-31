@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using User.Data.Interfaces;
-using User.Data.Model;
+using User.Data.Models;
 
 namespace User.Data.Infrastructure
 {
@@ -20,12 +20,12 @@ namespace User.Data.Infrastructure
 
         public IRepository<Person> UserRepository { get; }
 
-        public IRepository<Password> GetPasswordRepository()
+        public IRepository<UserPassword> GetPasswordRepository()
         {
             return new PasswordRepository(_context);
         }
 
-        public IRepository<Password> PasswordRepository { get; }
+        public IRepository<UserPassword> PasswordRepository { get; }
 
         public IRepository<Address> GetAddressRepository()
         {

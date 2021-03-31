@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using User.Data.DTO;
-using User.Data.Model;
+using User.Data.Models;
 using User.Domain.Services.Interfaces;
 
 namespace User.API.Controllers

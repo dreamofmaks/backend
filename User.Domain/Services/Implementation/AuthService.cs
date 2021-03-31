@@ -9,7 +9,7 @@ using AutoMapper;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using User.Data.DTO;
-using User.Data.Model;
+using User.Data.Models;
 using User.Domain.Services.Interfaces;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
@@ -36,7 +36,7 @@ namespace User.Domain.Services.Implementation
             
             var userPassword = await _passwordService.GetPasswordByUserId((int)currentUser.Id);
             var passwordForCheck = _passwordService.HashPasswordWithSalt(userPassword.Salt, password);
-            if (userPassword.Password1 == passwordForCheck.Password1)
+            if (userPassword.Password == passwordForCheck.Password)
             {
                 currentUser.Token = GenerateJWT(currentUser);
                 return currentUser;

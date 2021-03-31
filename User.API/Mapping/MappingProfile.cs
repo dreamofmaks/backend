@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using User.Data.DTO;
-using User.Data.Model;
+using User.Data.Models;
 
 namespace User.API.Mapping
 {
@@ -8,9 +8,9 @@ namespace User.API.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<PasswordDTO, Password>();
+            CreateMap<PasswordDTO, UserPassword>().ReverseMap();
 
-            CreateMap<Password, PasswordDTO>();
+            //CreateMap<UserPassword, PasswordDTO>();
 
             CreateMap<AddressDTO, Address>()
                 .ForPath(dist => dist.City.Id, opt => opt.MapFrom(src => src.City.Id))
@@ -39,7 +39,7 @@ namespace User.API.Mapping
 
             CreateMap<DCountry, CountryDTO>();
 
-            CreateMap<PasswordDTO, Password>()
+            CreateMap<PasswordDTO, UserPassword>()
                 .ForPath(dist => dist.UserId, opt => opt.MapFrom(src => src.UserId));
         }
     }

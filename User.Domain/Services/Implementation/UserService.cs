@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using User.Data.DTO;
 using User.Data.Infrastructure;
 using User.Data.Interfaces;
-using User.Data.Model;
+using User.Data.Models;
 using User.Domain.Services.Interfaces;
 
 namespace User.Domain.Services.Implementation
@@ -27,8 +27,8 @@ namespace User.Domain.Services.Implementation
         public async Task<PersonDTO> AddUserAsync(PersonDTO person)
         {
             var mappedUser = _mapper.Map<Person>(person);
-            var password = _mapper.Map<Password>(_passwordService.HashPassword(person.Password.Password1));
-            mappedUser.Passwords.Add(password);
+            var password = _mapper.Map<UserPassword>(_passwordService.HashPassword(person.Password.Password));
+            mappedUser.UserPasswords.Add(password);
             var personRepository =  _unitOfWork.UserRepository;
             await personRepository.AddAsync(mappedUser);
             await _unitOfWork.SaveChangesAsync();
@@ -58,7 +58,7 @@ namespace User.Domain.Services.Implementation
         public async Task DeleteByIdAsync(int id)
         {
             var passwordDto = await _passwordService.GetPasswordByUserId(id);
-            var password = _mapper.Map<Password>(passwordDto);
+            var password = _mapper.Map<UserPassword>(passwordDto);
             await _unitOfWork.PasswordRepository.DeleteAsync(password);
             var personRepository = _unitOfWork.UserRepository;
             var person = await personRepository.GetByIdAsync(id);

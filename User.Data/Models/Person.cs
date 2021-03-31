@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace User.Data.Model
+namespace User.Data.Models
 {
     public partial class Person : IEntity
     {
         public Person()
         {
-            Passwords = new HashSet<Password>();
+            UserPasswords = new HashSet<UserPassword>();
         }
 
         public int Id { get; set; }
@@ -20,6 +20,6 @@ namespace User.Data.Model
         public string Email { get; set; }
 
         public virtual Address Address { get; set; }
-        public virtual ICollection<Password> Passwords { get; set; }
+        public virtual ICollection<UserPassword> UserPasswords { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using User.Data.Interfaces;
-using User.Data.Model;
+using User.Data.Models;
 
 namespace User.Data.Interfaces
 {
@@ -11,9 +11,9 @@ namespace User.Data.Interfaces
         IRepository<City> GetCityRepository();
         IRepository<DCountry> GetCountryRepository();
 
-        IRepository<Password> GetPasswordRepository();
+        IRepository<UserPassword> GetPasswordRepository();
 
-        IRepository<Password> PasswordRepository { get; }
+        IRepository<UserPassword> PasswordRepository { get; }
 
         Task SaveChangesAsync();
     }
