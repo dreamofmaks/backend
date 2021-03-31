@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using User.Data.DTO;
 using User.Data.Infrastructure;
+using User.Data.Interfaces;
 using User.Data.Model;
 using User.Domain.Services.Interfaces;
 

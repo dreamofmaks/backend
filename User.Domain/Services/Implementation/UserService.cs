@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using User.Data.DTO;
 using User.Data.Infrastructure;
+using User.Data.Interfaces;
 using User.Data.Model;
 using User.Domain.Services.Interfaces;
 
@@ -26,7 +27,7 @@ namespace User.Domain.Services.Implementation
         public async Task<PersonDTO> AddUserAsync(PersonDTO person)
         {
             var mappedUser = _mapper.Map<Person>(person);
-            var password = _mapper.Map<Password>(_passwordService.HashPassword(person.Password));
+            var password = _mapper.Map<Password>(_passwordService.HashPassword(person.Password.Password1));
             mappedUser.Passwords.Add(password);
             var personRepository =  _unitOfWork.UserRepository;
             await personRepository.AddAsync(mappedUser);
@@ -56,6 +57,9 @@ namespace User.Domain.Services.Implementation
 
         public async Task DeleteByIdAsync(int id)
         {
+            var passwordDto = await _passwordService.GetPasswordByUserId(id);
+            var password = _mapper.Map<Password>(passwordDto);
+            await _unitOfWork.PasswordRepository.DeleteAsync(password);
             var personRepository = _unitOfWork.UserRepository;
             var person = await personRepository.GetByIdAsync(id);
             await _unitOfWork.GetCityRepository().DeleteByIdAsync(person.Address.City.Id);
@@ -66,7 +70,9 @@ namespace User.Domain.Services.Implementation
 
         public async Task<PersonDTO> UpdateUserAsync(PersonDTO personForUpdate)
         {
+            var user = await _unitOfWork.UserRepository.GetByIdWithoutTrackingAsync((int) personForUpdate.Id);
             var mappedUser = _mapper.Map<Person>(personForUpdate);
+            mappedUser.Email = user.Email;
             await _unitOfWork.UserRepository.UpdateAsync(mappedUser);
             await _unitOfWork.SaveChangesAsync();
             var mappedDto = _mapper.Map<PersonDTO>(mappedUser);

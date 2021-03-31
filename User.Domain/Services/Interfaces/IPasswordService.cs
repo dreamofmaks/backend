@@ -8,12 +8,10 @@ namespace User.Domain.Services.Interfaces
 {
     public interface IPasswordService
     {
-        //Task<PasswordDTO> AddPassword(PasswordDTO password);
-
-        PasswordDTO HashPassword(PasswordDTO password);
+        PasswordDTO HashPassword(string password);
 
         Task<PasswordDTO> GetPasswordByUserId(int userId);
 
-        public PasswordDTO HashPassword(string salt, string password);
+        PasswordDTO HashPasswordWithSalt(string salt, string password);
     }
 }

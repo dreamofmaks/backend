@@ -34,7 +34,7 @@ namespace User.Data.Infrastructure
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return await IncludedEntities.ToListAsync();
+            return await IncludedEntities.AsNoTracking().ToListAsync();
         }
 
         public async Task<TEntity> AddAsync(TEntity entity)

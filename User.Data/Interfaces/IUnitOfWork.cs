@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using User.Data.Interfaces;
 using User.Data.Model;
 
-namespace User.Data.Infrastructure
+namespace User.Data.Interfaces
 {
     public interface IUnitOfWork
     {
@@ -15,6 +12,8 @@ namespace User.Data.Infrastructure
         IRepository<DCountry> GetCountryRepository();
 
         IRepository<Password> GetPasswordRepository();
+
+        IRepository<Password> PasswordRepository { get; }
 
         Task SaveChangesAsync();
     }

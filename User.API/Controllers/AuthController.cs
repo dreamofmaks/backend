@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
@@ -26,7 +27,13 @@ namespace User.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] LoginDTO login)
         {
-            return Ok(await _authService.AuthenticateUser(login.Email, login.Password));
+            var authUser = await _authService.AuthenticateUser(login.Email, login.Password);
+            if (authUser != null)
+            {
+                return Ok(authUser);
+            }
+
+            return BadRequest("Wrong email or password!");
         }
     }
 }

@@ -35,13 +35,14 @@ namespace User.Domain.Services.Implementation
             var currentUser = users.FirstOrDefault(u => u.Email == email);
             
             var userPassword = await _passwordService.GetPasswordByUserId((int)currentUser.Id);
-            var passwordForCheck = _passwordService.HashPassword(userPassword.Salt, password);
+            var passwordForCheck = _passwordService.HashPasswordWithSalt(userPassword.Salt, password);
             if (userPassword.Password1 == passwordForCheck.Password1)
             {
                 currentUser.Token = GenerateJWT(currentUser);
+                return currentUser;
             }
 
-            return currentUser;
+            return null;
         }
 
         public string GenerateJWT(PersonDTO user)

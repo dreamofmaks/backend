@@ -15,9 +15,17 @@ namespace User.Data.Infrastructure
         {
             _context = context;
             UserRepository = new UserRepository(_context);
+            PasswordRepository = new PasswordRepository(_context);
         }
 
         public IRepository<Person> UserRepository { get; }
+
+        public IRepository<Password> GetPasswordRepository()
+        {
+            return new PasswordRepository(_context);
+        }
+
+        public IRepository<Password> PasswordRepository { get; }
 
         public IRepository<Address> GetAddressRepository()
         {
@@ -37,11 +45,6 @@ namespace User.Data.Infrastructure
         public async Task SaveChangesAsync()
         { 
             await _context.SaveChangesAsync();
-        }
-
-        public IRepository<Password> GetPasswordRepository()
-        {
-            return new Repository<Password>(_context);
         }
     }
 }

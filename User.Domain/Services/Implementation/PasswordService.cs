@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Pipes;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -9,6 +10,8 @@ using User.Data.DTO;
 using User.Data.Infrastructure;
 using User.Domain.Services.Interfaces;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.EntityFrameworkCore;
+using User.Data.Interfaces;
 using User.Data.Model;
 
 namespace User.Domain.Services.Implementation
@@ -25,11 +28,11 @@ namespace User.Domain.Services.Implementation
 
         public async Task<PasswordDTO> GetPasswordByUserId(int userId)
         {
-            var passwords = await _unitOfWork.GetPasswordRepository().GetAllAsync();
+            var passwords = await _unitOfWork.PasswordRepository.GetAllAsync();
             return _mapper.Map<PasswordDTO>(passwords.FirstOrDefault(u => u.UserId == userId));
         }
 
-        public PasswordDTO HashPassword(PasswordDTO password)
+        public PasswordDTO HashPassword(string password)
         {
             byte[] salt = new byte[32];
             using (RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider())
@@ -37,17 +40,15 @@ namespace User.Domain.Services.Implementation
                 rng.GetBytes(salt);
             }
 
-            byte[] hashedPass = KeyDerivation.Pbkdf2(password.Password1, salt, KeyDerivationPrf.HMACSHA256, 1000, 32);
-            var passwordDTO = new PasswordDTO
+            byte[] hashedPass = KeyDerivation.Pbkdf2(password, salt, KeyDerivationPrf.HMACSHA256, 1000, 32);
+            return new PasswordDTO
             {
                 Password1 = Convert.ToBase64String(hashedPass),
                 Salt = Convert.ToBase64String(salt)
             };
-
-            return passwordDTO;
         }
 
-        public PasswordDTO HashPassword(string salt, string password)
+        public PasswordDTO HashPasswordWithSalt(string salt, string password)
         {
             using (RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider())
             {
