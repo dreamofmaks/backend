@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace User.Data.DTO
@@ -14,5 +16,6 @@ namespace User.Data.DTO
         public string Token { get; set; }
         public int? AddressId { get; set; }
         public AddressDTO Address { get; set; }
+        public ICollection<PasswordDTO> UserPasswords { get; set; }
     }
 }

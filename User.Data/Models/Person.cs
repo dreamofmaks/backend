@@ -21,5 +21,6 @@ namespace User.Data.Models
 
         public virtual Address Address { get; set; }
         public virtual ICollection<UserPassword> UserPasswords { get; set; }
+
     }
 }

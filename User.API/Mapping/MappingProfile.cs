@@ -8,6 +8,7 @@ namespace User.API.Mapping
     {
         public MappingProfile()
         {
+
             CreateMap<PasswordDTO, UserPassword>().ReverseMap();
 
             //CreateMap<UserPassword, PasswordDTO>();

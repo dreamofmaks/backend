@@ -10,8 +10,7 @@ namespace User.Data.Models
         public int Id { get; set; }
         public string Password { get; set; }
         public string Salt { get; set; }
-        public int? UserId { get; set; }
-
+        public int UserId { get; set; }
         public virtual Person User { get; set; }
     }
 }
