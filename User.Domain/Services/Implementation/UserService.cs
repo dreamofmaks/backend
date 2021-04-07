@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using AutoMapper;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace User.Domain.Services.Implementation
             _passwordService = passwordService;
         }
 
-        public async Task<PersonDTO> AddUserAsync(PersonDTO person)
+        public async Task<RegistrationPersonDTO> AddUserAsync(RegistrationPersonDTO person)
         {
             var mappedUser = _mapper.Map<Person>(person);
             var password = _mapper.Map<UserPassword>(_passwordService.HashPassword(person.Password.Password));
@@ -34,7 +35,7 @@ namespace User.Domain.Services.Implementation
             await _unitOfWork.SaveChangesAsync();
             var user = await personRepository
                 .GetByIdAsync(mappedUser.Id);
-            var dtoMapped = _mapper.Map<PersonDTO>(user);
+            var dtoMapped = _mapper.Map<RegistrationPersonDTO>(user);
             return dtoMapped;
         }
 
@@ -77,6 +78,18 @@ namespace User.Domain.Services.Implementation
             await _unitOfWork.SaveChangesAsync();
             var mappedDto = _mapper.Map<PersonDTO>(mappedUser);
             return mappedDto;
+        }
+
+        public async Task<IEnumerable<PersonDTO>> GetLimitedUsers(int skip, int take)
+        {
+            var personRepository = _unitOfWork.UserRepository;
+            var users = await personRepository.GetLimited(skip, take);
+            return _mapper.Map<IEnumerable<PersonDTO>>(users);
+        }
+
+        public async Task<int> GetCountOfUsers()
+        {
+            return await _unitOfWork.UserRepository.GetCountOfEntities();
         }
     }
 }

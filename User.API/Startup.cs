@@ -33,6 +33,7 @@ namespace User.API
             ); ;
             services.AddDbContext<Context>(options =>
                 options.EnableSensitiveDataLogging().UseSqlServer(_config.GetConnectionString("DefaultConnection")));
+
             var authOptionsConfig = _config.GetSection("Auth");
             services.Configure<AuthOptions>(authOptionsConfig);
 
@@ -55,7 +56,6 @@ namespace User.API
                         ValidateIssuerSigningKey = true
                     };
                 });
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

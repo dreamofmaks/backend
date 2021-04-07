@@ -9,6 +9,7 @@ namespace User.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -19,7 +20,7 @@ namespace User.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddUser([FromBody] PersonDTO person)
+        public async Task<IActionResult> AddUser([FromBody] RegistrationPersonDTO person)
         {
             return Ok(await _userService.AddUserAsync(person));
         }
@@ -48,5 +49,18 @@ namespace User.API.Controllers
         {
             return Ok(await _userService.UpdateUserAsync(personForUpdate));
         }
+
+        [HttpGet("get")]
+        public async Task<IActionResult> GetAmount([FromQuery] int skip, [FromQuery] int take)
+        {
+            return Ok(await _userService.GetLimitedUsers(skip, take));
+        }
+
+        [HttpGet("count")]
+        public async Task<IActionResult> GetCountOfUsers()
+        {
+            return Ok(await _userService.GetCountOfUsers());
+        }
+
     }
 }

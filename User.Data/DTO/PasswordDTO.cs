@@ -10,6 +10,6 @@ namespace User.Data.DTO
         public string Password { get; set; }
         public string Salt { get; set; }
         public int? UserId { get; set; }
-        public PersonDTO User { get; set; }
+        public RegistrationPersonDTO User { get; set; }
     }
 }

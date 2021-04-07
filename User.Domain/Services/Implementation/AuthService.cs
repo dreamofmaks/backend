@@ -29,23 +29,29 @@ namespace User.Domain.Services.Implementation
             _passwordService = passwordService;
         }
 
-        public async Task<PersonDTO> AuthenticateUser(string email, string password)
+        public async Task<RegistrationPersonDTO> AuthenticateUser(string email, string password)
         {
             var users = await _userService.GetAllAsync();
             var currentUser = users.FirstOrDefault(u => u.Email == email);
-            
+            if (currentUser == null)
+            {
+                return null;
+            }
+
+            var userModel = _mapper.Map<Person>(currentUser);
+            var userDTO = _mapper.Map<RegistrationPersonDTO>(userModel);
             var userPassword = await _passwordService.GetPasswordByUserId((int)currentUser.Id);
             var passwordForCheck = _passwordService.HashPasswordWithSalt(userPassword.Salt, password);
             if (userPassword.Password == passwordForCheck.Password)
             {
-                currentUser.Token = GenerateJWT(currentUser);
-                return currentUser;
+                userDTO.Token = GenerateJWT(userDTO);
+                return userDTO;
             }
 
             return null;
         }
 
-        public string GenerateJWT(PersonDTO user)
+        public string GenerateJWT(RegistrationPersonDTO user)
         {
             var authParams = _authOptions.Value;
 

@@ -20,11 +20,6 @@ namespace User.Data.Infrastructure
 
         public IRepository<Person> UserRepository { get; }
 
-        public IRepository<UserPassword> GetPasswordRepository()
-        {
-            return new PasswordRepository(_context);
-        }
-
         public IRepository<UserPassword> PasswordRepository { get; }
 
         public IRepository<Address> GetAddressRepository()

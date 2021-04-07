@@ -9,7 +9,7 @@ namespace User.Domain.Services.Interfaces
 {
     public interface IAuthService
     {
-        Task<PersonDTO> AuthenticateUser(string email, string password);
-        string GenerateJWT(PersonDTO user);
+        Task<RegistrationPersonDTO> AuthenticateUser(string email, string password);
+        string GenerateJWT(RegistrationPersonDTO user);
     }
 }

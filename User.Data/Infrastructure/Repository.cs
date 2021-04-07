@@ -70,5 +70,15 @@ namespace User.Data.Infrastructure
             _context.Entry(updatedEntity).State = EntityState.Modified;
             return Task.FromResult(updatedEntity);
         }
+
+        public async Task<IEnumerable<TEntity>> GetLimited(int skip, int take)
+        {
+            return await IncludedEntities.Skip(skip).Take(take).ToListAsync();
+        }
+
+        public async Task<int> GetCountOfEntities()
+        {
+            return await IncludedEntities.CountAsync();
+        }
     }
 }

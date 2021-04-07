@@ -23,7 +23,6 @@ namespace User.API.ServiceExtension
             services.AddScoped<IRepository<DCountry>, Repository<DCountry>>();
             services.AddScoped<IRepository<Person>, UserRepository>();
             services.AddScoped<IRepository<UserPassword>, PasswordRepository>();
-
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuthService, AuthService>();

@@ -28,5 +28,9 @@ namespace User.Data.Interfaces
         Task<bool> DeleteByIdAsync(int id);
 
         Task<TEntity> UpdateAsync(TEntity entity);
+
+        Task<IEnumerable<TEntity>> GetLimited(int skip, int take);
+
+        Task<int> GetCountOfEntities();
     }
 }

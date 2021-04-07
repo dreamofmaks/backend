@@ -9,7 +9,7 @@ namespace User.Domain.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<PersonDTO> AddUserAsync(PersonDTO person);
+        Task<RegistrationPersonDTO> AddUserAsync(RegistrationPersonDTO person);
 
         Task<IEnumerable<PersonDTO>> GetAllAsync();
 
@@ -18,5 +18,9 @@ namespace User.Domain.Services.Interfaces
         Task DeleteByIdAsync(int id);
 
         Task<PersonDTO> UpdateUserAsync(PersonDTO person);
+
+        Task<IEnumerable<PersonDTO>> GetLimitedUsers(int skip, int take);
+
+        Task<int> GetCountOfUsers();
     }
 }
