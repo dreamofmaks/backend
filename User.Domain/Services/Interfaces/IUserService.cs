@@ -9,7 +9,9 @@ namespace User.Domain.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<RegistrationPersonDTO> AddUserAsync(RegistrationPersonDTO person);
+        Task<PersonDTO> SignUpUserAsync(RegistrationPersonDTO person);
+
+        Task<PersonDTO> AddUserAsync(PersonDTO user);
 
         Task<IEnumerable<PersonDTO>> GetAllAsync();
 

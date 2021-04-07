@@ -25,7 +25,7 @@ namespace User.Domain.Services.Implementation
             _passwordService = passwordService;
         }
 
-        public async Task<RegistrationPersonDTO> AddUserAsync(RegistrationPersonDTO person)
+        public async Task<PersonDTO> SignUpUserAsync(RegistrationPersonDTO person)
         {
             var mappedUser = _mapper.Map<Person>(person);
             var password = _mapper.Map<UserPassword>(_passwordService.HashPassword(person.Password.Password));
@@ -35,8 +35,17 @@ namespace User.Domain.Services.Implementation
             await _unitOfWork.SaveChangesAsync();
             var user = await personRepository
                 .GetByIdAsync(mappedUser.Id);
-            var dtoMapped = _mapper.Map<RegistrationPersonDTO>(user);
+            var dtoMapped = _mapper.Map<PersonDTO>(user);
+
             return dtoMapped;
+        }
+
+        public async Task<PersonDTO> AddUserAsync(PersonDTO user)
+        {
+            var mappedUser = _mapper.Map<Person>(user);
+            await _unitOfWork.UserRepository.AddAsync(mappedUser);
+            await _unitOfWork.SaveChangesAsync();
+            return user;
         }
 
         public async Task<IEnumerable<PersonDTO>> GetAllAsync()

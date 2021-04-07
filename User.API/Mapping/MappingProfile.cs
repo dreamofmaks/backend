@@ -48,6 +48,8 @@ namespace User.API.Mapping
                 .ForMember(dist => dist.AddressId, opt => opt.MapFrom(src => src.AddressId))
                 .ForMember(dist => dist.UserPasswords, opt => opt.Ignore());
 
+            CreateMap<RegistrationPersonDTO, PersonDTO>();
+
             CreateMap<CountryDTO, DCountry>();
 
             CreateMap<DCountry, CountryDTO>();

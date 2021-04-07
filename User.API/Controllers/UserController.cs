@@ -20,7 +20,14 @@ namespace User.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddUser([FromBody] RegistrationPersonDTO person)
+        [AllowAnonymous]
+        public async Task<IActionResult> SignUpUser([FromBody] RegistrationPersonDTO person)
+        {
+            return Ok(await _userService.SignUpUserAsync(person));
+        }
+
+        [HttpPost("createUser")]
+        public async Task<IActionResult> AddUser([FromBody] PersonDTO person)
         {
             return Ok(await _userService.AddUserAsync(person));
         }
