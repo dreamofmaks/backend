@@ -8,7 +8,7 @@ using User.Domain.Services.Interfaces;
 
 namespace User.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/countries")]
     [ApiController]
     public class CountryController : ControllerBase
     {

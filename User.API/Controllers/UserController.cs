@@ -7,7 +7,7 @@ using User.Domain.Services.Interfaces;
 
 namespace User.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/users")]
     [ApiController]
     [Authorize]
     public class UserController : ControllerBase
@@ -26,7 +26,7 @@ namespace User.API.Controllers
             return Ok(await _userService.SignUpUserAsync(person));
         }
 
-        [HttpPost("createUser")]
+        [HttpPost("create")]
         public async Task<IActionResult> AddUser([FromBody] PersonDTO person)
         {
             return Ok(await _userService.AddUserAsync(person));
@@ -57,8 +57,8 @@ namespace User.API.Controllers
             return Ok(await _userService.UpdateUserAsync(personForUpdate));
         }
 
-        [HttpGet("get")]
-        public async Task<IActionResult> GetAmount([FromQuery] int skip, [FromQuery] int take)
+        [HttpGet("limited")]
+        public async Task<IActionResult> GetLimitedUsers([FromQuery] int skip, [FromQuery] int take)
         {
             return Ok(await _userService.GetLimitedUsers(skip, take));
         }
@@ -68,6 +68,5 @@ namespace User.API.Controllers
         {
             return Ok(await _userService.GetCountOfUsers());
         }
-
     }
 }

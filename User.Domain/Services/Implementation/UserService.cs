@@ -69,7 +69,10 @@ namespace User.Domain.Services.Implementation
         {
             var passwordDto = await _passwordService.GetPasswordByUserId(id);
             var password = _mapper.Map<UserPassword>(passwordDto);
-            await _unitOfWork.PasswordRepository.DeleteAsync(password);
+            if (password != null)
+            {
+                await _unitOfWork.PasswordRepository.DeleteAsync(password);
+            }
             var personRepository = _unitOfWork.UserRepository;
             var person = await personRepository.GetByIdAsync(id);
             await _unitOfWork.GetCityRepository().DeleteByIdAsync(person.Address.City.Id);
