@@ -11,7 +11,6 @@ namespace User.Data.DTO
         public DateTime? DateOfBirth { get; set; }
         public int? AddressId { get; set; }
         public string Email { get; set; }
-
         public virtual AddressDTO Address { get; set; }
     }
 }

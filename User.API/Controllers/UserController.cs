@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Runtime.InteropServices;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using User.Data.DTO;
@@ -32,12 +34,6 @@ namespace User.API.Controllers
             return Ok(await _userService.AddUserAsync(person));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetUsers()
-        {
-            return Ok(await _userService.GetAllAsync());
-        }
-
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById(int id)
         {
@@ -57,10 +53,20 @@ namespace User.API.Controllers
             return Ok(await _userService.UpdateUserAsync(personForUpdate));
         }
 
-        [HttpGet("limited")]
-        public async Task<IActionResult> GetLimitedUsers([FromQuery] int skip, [FromQuery] int take)
+        [HttpGet]
+        public async Task<IActionResult> GetLimitedUsers([FromQuery] QueryParamsDTO param)
         {
-            return Ok(await _userService.GetLimitedUsers(skip, take));
+            if (String.IsNullOrEmpty(param.SortBy))
+            {
+                return Ok(await _userService.GetLimitedUsers(param.Skip, param.Take));
+            }
+
+            if (param.Order == "asc")
+            {
+                return Ok(await _userService.GetSortedUsers(param.SortBy, param.Skip, param.Take, param.Order));
+            }
+
+            return Ok(await _userService.GetSortedUsers(param.SortBy, param.Skip, param.Take, param.Order));
         }
 
         [HttpGet("count")]

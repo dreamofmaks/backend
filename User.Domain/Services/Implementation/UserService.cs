@@ -3,6 +3,7 @@ using System.Collections;
 using AutoMapper;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using User.Data.DTO;
 using User.Data.Infrastructure;
@@ -102,6 +103,20 @@ namespace User.Domain.Services.Implementation
         public async Task<int> GetCountOfUsers()
         {
             return await _unitOfWork.UserRepository.GetCountOfEntities();
+        }
+
+        public async Task<IEnumerable<PersonDTO>> GetSortedUsers(string sortBy, int skip, int take, string order)
+        {
+            var sortingProperty = sortBy;
+            var propertyDoesNotExist = typeof(Person).GetProperty(sortingProperty, BindingFlags.Instance | BindingFlags.Public | BindingFlags.IgnoreCase) is null;
+            if (propertyDoesNotExist)
+            {
+                throw new Exception("property does not exist on type");
+            }
+
+            var sortedUsers = await _unitOfWork.UserRepository.GetSorted(sortBy, skip, take, order);
+            var users = _mapper.Map<IEnumerable<PersonDTO>>(sortedUsers);
+            return users;
         }
     }
 }

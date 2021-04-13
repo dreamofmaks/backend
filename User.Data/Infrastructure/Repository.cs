@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using User.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using User.Data.Extensions;
 using User.Data.Models;
 
 namespace User.Data.Infrastructure
@@ -79,6 +80,15 @@ namespace User.Data.Infrastructure
         public async Task<int> GetCountOfEntities()
         {
             return await IncludedEntities.CountAsync();
+        }
+
+        public virtual async Task<IEnumerable<TEntity>> GetSorted(string sortBy, int skip, int take, string order)
+        {
+            if (order == "asc")
+            {
+                return await IncludedEntities.Skip(skip).Take(take).OrderBy(x => x.Id).ToListAsync();
+            }
+            return await IncludedEntities.Skip(skip).Take(take).OrderByDescending(x => x.Id).ToListAsync();
         }
     }
 }

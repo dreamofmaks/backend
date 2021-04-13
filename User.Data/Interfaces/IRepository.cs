@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -32,5 +33,7 @@ namespace User.Data.Interfaces
         Task<IEnumerable<TEntity>> GetLimited(int skip, int take);
 
         Task<int> GetCountOfEntities();
+
+        Task<IEnumerable<TEntity>> GetSorted(string sortBy, int skip, int take, string order);
     }
 }

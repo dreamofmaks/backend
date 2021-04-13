@@ -24,5 +24,7 @@ namespace User.Domain.Services.Interfaces
         Task<IEnumerable<PersonDTO>> GetLimitedUsers(int skip, int take);
 
         Task<int> GetCountOfUsers();
+
+        Task<IEnumerable<PersonDTO>> GetSortedUsers(string sortBy, int skip, int take, string order);
     }
 }
