@@ -25,6 +25,6 @@ namespace User.Domain.Services.Interfaces
 
         Task<int> GetCountOfUsers();
 
-        Task<IEnumerable<PersonDTO>> GetSortedUsers(string sortBy, int skip, int take, string order);
+        Task<IEnumerable<PersonDTO>> GetSortedUsers(GetUsersQueryParams queryParams);
     }
 }

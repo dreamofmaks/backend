@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Primitives;
 using User.Data.DTO;
+using User.Data.Enums;
 using User.Data.Extensions;
 using User.Data.Interfaces;
 using User.Data.Models;
@@ -26,14 +27,14 @@ namespace User.Data.Infrastructure
             .Include(u => u.Address)
             .ThenInclude(u => u.Country);
 
-        public override async Task<IEnumerable<Person>> GetSorted(string sortBy, int skip, int take, string order)
+        public override async Task<IEnumerable<Person>> GetSorted(GetUsersQueryParams queryParams)
         {
-            if (order == "asc")
+            if (queryParams.Order == OrderType.asc.ToString())
             {
-                return await IncludedEntities.Skip(skip).Take(take).OrderBy(sortBy).ToListAsync();
+                return await IncludedEntities.Skip(queryParams.Skip).Take(queryParams.Take).OrderBy(queryParams.SortBy).ToListAsync();
             }
 
-            return await IncludedEntities.Skip(skip).Take(take).OrderByDescending(sortBy).ToListAsync();
+            return await IncludedEntities.Skip(queryParams.Skip).Take(queryParams.Take).OrderByDescending(queryParams.SortBy).ToListAsync();
         }
     }
 }

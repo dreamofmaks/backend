@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using User.Data.DTO;
 using User.Data.Models;
 
 namespace User.Data.Interfaces
@@ -34,6 +35,6 @@ namespace User.Data.Interfaces
 
         Task<int> GetCountOfEntities();
 
-        Task<IEnumerable<TEntity>> GetSorted(string sortBy, int skip, int take, string order);
+        Task<IEnumerable<TEntity>> GetSorted(GetUsersQueryParams queryParams);
     }
 }

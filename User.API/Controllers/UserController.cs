@@ -54,19 +54,14 @@ namespace User.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetLimitedUsers([FromQuery] QueryParamsDTO param)
+        public async Task<IActionResult> GetLimitedUsers([FromQuery] GetUsersQueryParams param)
         {
             if (String.IsNullOrEmpty(param.SortBy))
             {
                 return Ok(await _userService.GetLimitedUsers(param.Skip, param.Take));
             }
 
-            if (param.Order == "asc")
-            {
-                return Ok(await _userService.GetSortedUsers(param.SortBy, param.Skip, param.Take, param.Order));
-            }
-
-            return Ok(await _userService.GetSortedUsers(param.SortBy, param.Skip, param.Take, param.Order));
+            return Ok(await _userService.GetSortedUsers(param));
         }
 
         [HttpGet("count")]

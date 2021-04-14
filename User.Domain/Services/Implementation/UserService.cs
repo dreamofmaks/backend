@@ -105,16 +105,16 @@ namespace User.Domain.Services.Implementation
             return await _unitOfWork.UserRepository.GetCountOfEntities();
         }
 
-        public async Task<IEnumerable<PersonDTO>> GetSortedUsers(string sortBy, int skip, int take, string order)
+        public async Task<IEnumerable<PersonDTO>> GetSortedUsers(GetUsersQueryParams queryParams)
         {
-            var sortingProperty = sortBy;
+            var sortingProperty = queryParams.SortBy;
             var propertyDoesNotExist = typeof(Person).GetProperty(sortingProperty, BindingFlags.Instance | BindingFlags.Public | BindingFlags.IgnoreCase) is null;
             if (propertyDoesNotExist)
             {
                 throw new Exception("property does not exist on type");
             }
 
-            var sortedUsers = await _unitOfWork.UserRepository.GetSorted(sortBy, skip, take, order);
+            var sortedUsers = await _unitOfWork.UserRepository.GetSorted(queryParams);
             var users = _mapper.Map<IEnumerable<PersonDTO>>(sortedUsers);
             return users;
         }
